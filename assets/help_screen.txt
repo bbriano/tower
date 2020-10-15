@@ -1,0 +1,44 @@
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|  AVAILABLE COMMANDS                                                         |
+|                                                                             |
+|  //> help              Show this help screen                                |
+|                                                                             |
+|  //> view {view}       Change view                                          |
+|                                                                             |
+|  //> room {room}       Move to a different room                             |
+|                                                                             |
+|  //> collect {item}    Collect an item in the room.                         |
+|                                                                             |
+|  //> item              See inventory                                        |
+|                                                                             |
+|  //> item {item}       Get a close look of an item in your inventory        |
+|                                                                             |
+|  //> talk {suspect}    Get details of suspect (must be in same room)        |
+|                                                                             |
+|  //> accuse {suspect}  Accuse suspect is murderer                           |
+|                                                                             |
+|  //> exit              Exit the game                                        |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
++-----------------------------------------------------------------------------+
