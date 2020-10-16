@@ -18,6 +18,7 @@
 enum View {
     VIEW_TOWER,
     VIEW_ROOM,
+    VIEW_INVENTORY,
     VIEW_COUNT
 };
 
@@ -25,7 +26,7 @@ class Game {
     public:
         Game(std::string playerName);
 
-        bool runGameLoop();  // returns true if the player found the killer
+        bool getFoundKiller();
 
     private:
         Player player;
@@ -35,9 +36,13 @@ class Game {
         bool foundKiller;
         int view;
 
-        void renderView();
+        void createRooms();
+        void runGameLoop();
         void cycleView();
         void command();  // Read command from user and do appropriate actions
+
+        void renderView();
+        void renderTower();
 
         void showStoryLine();
         void showHelpScreen();

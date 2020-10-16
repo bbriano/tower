@@ -56,11 +56,11 @@ void mainMenu() {
 // Start game
 void startGame() {
     string playerName = readInput("Enter player name: ");
-    Game game(playerName);
 
     // Run the game while keeping track of the time
     int gameStartTimeSeconds = time(0);
-    bool playerWon = game.runGameLoop();
+    Game game(playerName);
+    bool playerWon = game.getFoundKiller();
     int playedTime = time(0) - gameStartTimeSeconds;
 
     endGame(playerWon, playedTime);
@@ -75,7 +75,7 @@ void endGame(bool playerWon, int playedTimeSeconds) {
     } else {
         cout << readFile("assets/game_over.txt");
     }
-    cout << "TIME: " << playedTimeSeconds << endl;
+    cout << "TIME: " << playedTimeSeconds << "s" << endl;
     pause();
 }
 

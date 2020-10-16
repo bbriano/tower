@@ -16,6 +16,17 @@ string Player::getName() {
     return this->name;
 }
 
+Room *Player::getRoom() {
+    return this->room;
+}
+
 vector<Item> Player::getInventory() {
     return this->inventory;
+}
+
+void Player::move(Direction direction) {
+    Room *destination = this->room->getNeighbour(direction);
+    if (destination != NULL) {
+        this->room = destination;
+    }
 }

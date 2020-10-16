@@ -4,40 +4,38 @@
 |                                                                             |
 +-------------------------+-------/ LEVEL 2 \-------+-------------------------+
 |                         |                         |                         |
+|          XXXXX          |          XXXXX          |          XXXXX          |
 |                         |                         |                         |
 |                         |                         |                         |
 |                         |                         |                         |
 |                         |                         |                         |
 |                         |                         |                         |
-|                         |                         |                         |
-| CONTROL CENTER          | OFFICE                  | SPA                     |
+| RRRRRRRRRRRRRRRRRRRRRRR | RRRRRRRRRRRRRRRRRRRRRRR | RRRRRRRRRRRRRRRRRRRRRRR |
 +-------------------------+-------/ LEVEL 1 \-------+-------------------------+
 |                         |                         |                         |
+|          XXXXX          |          XXXXX          |          XXXXX          |
 |                         |                         |                         |
 |                         |                         |                         |
 |                         |                         |                         |
 |                         |                         |                         |
 |                         |                         |                         |
-|                         |                         |                         |
-| LABORATORY              | LIBRARY                 | GIFT SHOP               |
+| RRRRRRRRRRRRRRRRRRRRRRR | RRRRRRRRRRRRRRRRRRRRRRR | RRRRRRRRRRRRRRRRRRRRRRR |
 +-------------------------+-------/ LEVEL 0 \-------+-------------------------+
 |                         |                         |                         |
-|                         |           ___           |                         |
-|                         |          /@ @\          |                         |
-|                         |          \___/          |                         |
-|                         |          __|__          |                         |
-|                         |            |            |                         |
-|                         |           / \           |                         |
-| CAFETARIA               | LOBBY                   | TOILET                  |
+|          XXXXX          |          XXXXX          |          XXXXX          |
+|                         |                         |                         |
+|                         |                         |                         |
+|                         |                         |                         |
+|                         |                         |                         |
+|                         |                         |                         |
+| RRRRRRRRRRRRRRRRRRRRRRR | RRRRRRRRRRRRRRRRRRRRRRR | RRRRRRRRRRRRRRRRRRRRRRR |
 +-------------------------+-------/ LEVEL -1 \------+-------------------------+
 |                         |                         |                         |
+|          XXXXX          |          XXXXX          |          XXXXX          |
 |                         |                         |                         |
 |                         |                         |                         |
 |                         |                         |                         |
 |                         |                         |                         |
 |                         |                         |                         |
-|                         |                         |                         |
-| SERVER ROOM             | CAR PARK                | PLUMBING ROOM           |
+| RRRRRRRRRRRRRRRRRRRRRRR | RRRRRRRRRRRRRRRRRRRRRRR | RRRRRRRRRRRRRRRRRRRRRRR |
 +-------------------------+-------------------------+-------------------------+
-| NAME: ZACK                                                         ITEMS: 4 |
-+-----------------------------------------------------------------------------+
