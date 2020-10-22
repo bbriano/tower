@@ -21,10 +21,22 @@ enum Direction {
 };
 
 class Room {
+    public:
+        Room(std::string name, std::string imagePath);
+
+        std::string getName();
+        std::string getImagePath();
+        std::vector<Item> getItems();
+
+        void addItem(Item item);
+        void removeItem(int index);
+
+        void setNeighbour(Direction direction, Room *room);
+        Room *getNeighbour(Direction direction);
+
     private:
-        std::string name;  // must be unique
-        std::string description;
-        std::string image;
+        std::string name;
+        std::string imagePath;
 
         // List of all suspects in the room
         std::vector<Suspect> suspects;
@@ -34,16 +46,4 @@ class Room {
 
         // Pointer to neighbouring room in all four direction
         std::map<Direction, Room*> neighbour;
-
-    public:
-        Room(
-            std::string name,
-            std::string description,
-            std::string image
-        );
-
-        std::string getName();
-
-        void setNeighbour(Direction direction, Room *room);
-        Room *getNeighbour(Direction direction);
 };

@@ -1,5 +1,7 @@
 #include <fstream>
 #include <iostream>
+#include <sstream>
+#include "utils.h"
 
 using namespace std;
 
@@ -25,11 +27,19 @@ string readFile(string fileName) {
     return content;
 }
 
-string readInput(string prompt = "") {
+string readInput(string prompt) {
     cout << prompt;
     string input;
     getline(cin, input);
     return input;
+}
+
+int readInputInt(string prompt) {
+    string input;
+    do {
+        input = readInput("Pick one option (1-4): ");
+    } while(!isInteger(input));
+    return stoi(input);
 }
 
 void pause() {
@@ -73,4 +83,27 @@ string toLower(string str) {
         }
     }
     return str;
+}
+
+string fixedWidth(string text, char symbol, int width) {
+    string output = "";
+
+    for (int i = 0; i < width; i++) {
+        if (i < text.length()) {
+            output += text[i];
+        } else {
+            output += symbol;
+        }
+    }
+
+    return output;
+}
+
+string toHourMinuteSeconds(int seconds) {
+    int hour = seconds / 60 / 60;
+    int min = seconds / 60 % 60;
+    int sec = seconds % 60;
+    stringstream output;
+    output << hour << ':' << min << ':' << sec;
+    return output.str();
 }

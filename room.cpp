@@ -1,11 +1,16 @@
+/************************************************************
+ *
+ * room.cpp
+ *
+************************************************************/
+
 #include "room.h"
 
 using namespace std;
 
-Room::Room(string name, string description, string image) {
+Room::Room(string name, string imagePath) {
     this->name = name;
-    this->description = description;
-    this->image = image;
+    this->imagePath = imagePath;
 
     // Initialize neighbours to NULL
     this->neighbour[DIR_LEFT] = NULL;
@@ -16,6 +21,22 @@ Room::Room(string name, string description, string image) {
 
 string Room::getName() {
     return this->name;
+}
+
+string Room::getImagePath() {
+    return this->imagePath;
+}
+
+vector<Item> Room::getItems() {
+    return this->items;
+}
+
+void Room::addItem(Item item) {
+    this->items.push_back(item);
+}
+
+void Room::removeItem(int index) {
+    this->items.erase(this->items.begin() + index);
 }
 
 void Room::setNeighbour(Direction direction, Room *room) {

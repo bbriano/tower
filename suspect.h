@@ -10,11 +10,10 @@
 #include <string>
 
 class Suspect {
+    public:
+        Suspect(std::string name, std::string imagePath);
+
     private:
         std::string name;
-        std::string description;
-        std::string image;
-
-    public:
-        Suspect();
+        std::string imagePath;
 };
