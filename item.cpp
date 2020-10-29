@@ -4,7 +4,9 @@
  *
 ************************************************************/
 
+#include <iostream>
 #include "item.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -17,6 +19,9 @@ string Item::getName() {
     return this->name;
 }
 
-string Item::getImagePath() {
-    return this->imagePath;
+// Display the item, load from file
+void Item::display() {
+    clearScreen();
+    cout << readFile(this->imagePath);
+    pause();
 }

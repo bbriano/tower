@@ -14,6 +14,7 @@
 #include "utils.h"
 #include <iostream>
 #include <ctime>
+#define TOWER_WIDTH 77  // Not including border
 
 using namespace std;
 
@@ -23,7 +24,7 @@ void changeDifficulty();
 void showLeaderboard();
 
 bool hasExit = false;
-Difficulty difficulty = DIFF_EASY;
+Difficulty difficulty = DIFF_MEDIUM;
 
 // Function call graph: main -> mainMenu -> startGame
 int main() {
@@ -36,32 +37,26 @@ int main() {
     }
 }
 
-// Show list of actions to user, run specific actions based on what the user
-// input
+// Show list of actions to user, run specific actions based on what the user input
 void mainMenu() {
-    // Display main menu screen
     clearScreen();
-    cout << readFile("assets/main_menu.txt");
 
-    // Print current difficulty level
-    cout << "Difficulty: ";
-    switch (difficulty) {
-        case DIFF_EASY:
-            cout << "Easy" << endl;
-            break;
-        case DIFF_MEDIUM:
-            cout << "Medium" << endl;
-            break;
-        case DIFF_HARD:
-            cout << "Hard" << endl;
-            break;
-        case DIFF_NIGHTMARE:
-            cout << "Nightmare" << endl;
-            break;
-    }
+    // Display main menu screen
+    cout << readFile("assets/cover_screen.txt");
+    string diff;
+    if (difficulty == DIFF_EASY) diff = "[Easy]";
+    else if (difficulty == DIFF_MEDIUM) diff = "[Medium]";
+    else if (difficulty == DIFF_HARD) diff = "[Hard]";
+    else if (difficulty == DIFF_NIGHTMARE) diff = "[Nightmare]";
+    diff = fixedWidth(diff, ' ', 14);
+    cout << "|                                      |                                      |" << endl;
+    cout << "|  1. Start game                       |  3. Show leaderboard                 |" << endl;
+    cout << "|                                      |                                      |" << endl;
+    cout << "|  2. Change difficulty " << diff << " |  4. Exit                             |" << endl;
+    cout << "|                                      |                                      |" << endl;
+    cout << "+-----------------------------------------------------------------------------+" << endl;
 
     // Get option from user. keep asking until get valid option
-    /* string input; */
     int option;
     do {
         option = readInputInt("Pick one option (1-4): ");
@@ -115,7 +110,10 @@ void runGame() {
     }
 
     int playedTimeSeconds = time(NULL) - gameStartTimeSeconds;
-    cout << "TIME: " << toHourMinuteSeconds(playedTimeSeconds) << endl;
+    cout << "|                                                                             |" << endl;
+    cout << '|' + fixedWidth(" TIME: " + toHourMinuteSeconds(playedTimeSeconds), ' ', TOWER_WIDTH) << '|' << endl;
+    cout << "|                                                                             |" << endl;
+    cout << "+-----------------------------------------------------------------------------+" << endl;
     pause();
 }
 

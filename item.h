@@ -14,7 +14,8 @@ class Item {
         Item(std::string name, std::string imagePath);
 
         std::string getName();
-        std::string getImagePath();
+
+        void display();
 
     private:
         std::string name;

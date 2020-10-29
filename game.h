@@ -22,23 +22,19 @@ enum View {
 };
 
 enum Difficulty {
-    DIFF_EASY,      // -> Pickup all items as fast as possible. No time limit
-    DIFF_MEDIUM,    // ->
-    DIFF_HARD,      // ->
-    DIFF_NIGHTMARE  // ->
+    DIFF_EASY,      // Pickup all items as fast as possible. No time limit
+    DIFF_MEDIUM,    //
+    DIFF_HARD,      //
+    DIFF_NIGHTMARE  // 1 minute time limit, pickup weapon, accuse killer in killer room
 };
 
 class Game {
     public:
         Game(std::string playerName, Difficulty difficulty);
-
         void showStoryLine();
         void showHelpScreen();
-
         void displayView();
         void command();
-
-        // Accesor methods
         bool getFoundKiller();
         bool getGameOver();
 
@@ -46,12 +42,15 @@ class Game {
         // Private variables
         Player player;
         std::vector<Room> rooms;
+        std::vector<Item> items;
+        std::vector<Suspect> suspects;
+
         View view;
         Difficulty difficulty;
         bool gameOver;
         bool foundKiller;
 
-        // Initializer methods
+        // Create game objects
         void createRooms();
         void createItems();
         void createSuspects();
@@ -65,4 +64,8 @@ class Game {
         // Utility commands
         void confirmQuit();
         void invalidCommand();
+
+        // Actions
+        void talk(std::string suspectName);
+        void gather();
 };

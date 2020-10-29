@@ -1,33 +1,6 @@
 +-----------------------------------------------------------------------------+
 |                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|  AVAILABLE COMMANDS                                                         |
-|                                                                             |
-|  //> help                    Show this help screen                          |
-|                                                                             |
-|  //> left                    Move left                                      |
-|  //> right                   Move right                                     |
-|  //> up                      Move up                                        |
-|  //> down                    Move down                                      |
-|                                                                             |
-|  //> tower                   Switch to tower view                           |
-|  //> room                    Switch to room view                            |
-|  //> inv                     Switch to inventory view                       |
-|  //> view                    Cycle through the different views              |
-|                                                                             |
-|  //> search                  Search for items in the current room           |
-|  //> pickup {item}           Pickup an item in the room                     |
-|  //> drop {item}             Drop item in inventory to room                 |
-|  //> inspect {item}          Get a close look of an item in your inventory  |
-|                                                                             |
-|  //> talk {suspect}          Get details of suspect (must be in same room)  |
-|  //> accuse {suspect}        Accuse suspect is murderer                     |
-|                                                                             |
-|  //> quit                    If you want to give up                         |
+|  VASE                                                                       |
 |                                                                             |
 |                                                                             |
 |                                                                             |
@@ -36,6 +9,33 @@
 |                                                                             |
 |                                                                             |
 |                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                  ASCII ART                                  |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
++-----------------------------------------------------------------------------+
+|                                                                             |
+|                                                                             |
+|  Item description                                                           |
 |                                                                             |
 |                                                                             |
 +-----------------------------------------------------------------------------+

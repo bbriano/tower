@@ -20,11 +20,11 @@
 //
 // TODO commands:
 // - QUESTION suspects to determine alibis "I was with Bob and Charlie"
+// - GATHER all suspects to current room
 // - ACCUSE the suspect who thik is murderer
 
 #include <iostream>
 #include <sstream>
-#include <algorithm>
 #include "game.h"
 #include "player.h"
 #include "item.h"
@@ -32,8 +32,8 @@
 #define ROOM_ROWS 4
 #define ROOM_COLS 3
 #define ROOM_WIDTH 25    // Not including border
-#define WINDOW_WIDTH 77  // Not including border
-#define WINDOW_HEIGHT 39 // Not including border
+#define TOWER_WIDTH 77  // Not including border
+#define TOWER_HEIGHT 39 // Not including border
 
 using namespace std;
 string readFile(string fileName);
@@ -50,7 +50,8 @@ Game::Game(string playerName, Difficulty difficulty) {
     // Create player instance
     Room startingRoom = this->rooms[6];
     this->player = Player(playerName, &startingRoom);
-    this->player.move(DIR_RIGHT);
+    cout << this->player.getRoom()->getName() << endl;
+    this->player.move(DIR_RIGHT);  // NOTE: For some reason have to put line below else player dont show first time in tower
 
     // Initialize variables
     this->gameOver = false;
@@ -127,7 +128,6 @@ void Game::command() {
 
     // Supect Interactions
     else if (command == "talk") this->talk(argument);
-    else if (command == "gather") this->gather();
 
     // Utility commands
     else if (command == "help") this->showHelpScreen();
@@ -217,45 +217,26 @@ void Game::createItems() {
 // Generate suspects objects
 void Game::createSuspects() {
     // Create suspects
-    this->suspects.push_back(Suspect("Anna", "assets/suspect_anna.txt"));
-    this->suspects.push_back(Suspect("Bob", "assets/suspect_bob.txt"));
-    this->suspects.push_back(Suspect("Charlie", "assets/suspect_charlie.txt"));
-    this->suspects.push_back(Suspect("Daniel", "assets/suspect_daniel.txt"));
-    this->suspects.push_back(Suspect("Emma", "assets/suspect_emma.txt"));
-    this->suspects.push_back(Suspect("Felix", "assets/suspect_felix.txt"));
-    this->suspects.push_back(Suspect("George", "assets/suspect_george.txt"));
+    vector<Suspect> suspects;
+    suspects.push_back(Suspect("Anna", "assets/suspect_anna.txt"));
+    suspects.push_back(Suspect("Bob", "assets/suspect_bob.txt"));
+    suspects.push_back(Suspect("Charlie", "assets/suspect_charlie.txt"));
+    suspects.push_back(Suspect("Daniel", "assets/suspect_daniel.txt"));
+    suspects.push_back(Suspect("Emma", "assets/suspect_emma.txt"));
+    suspects.push_back(Suspect("Felix", "assets/suspect_felix.txt"));
+    suspects.push_back(Suspect("George", "assets/suspect_george.txt"));
+    suspects.push_back(Suspect("Harry", "assets/suspect_harry.txt"));
 
-    // Create a vector of pointer to all suspects (for picking purpose)
-    vector<Suspect*> suspectsNotPicked;
-    for (int i = 0; i < this->suspects.size(); i++) {
-        suspectsNotPicked.push_back(&this->suspects[i]);
-    }
-    /* random_shuffle(suspectsNotPicked.begin(), suspectsNotPicked.end()); */
-
-    // Victim
-    suspectsNotPicked.back()->setType(SUS_VICTIM);
-    suspectsNotPicked.pop_back();
-
-    // Killer
-    suspectsNotPicked.back()->setType(SUS_KILLER);
-    suspectsNotPicked.back()->setAlibi(suspectsNotPicked[rand() % suspectsNotPicked.size()]);
-    suspectsNotPicked.pop_back();
-
-    // Set alibi pairs
-    while (suspectsNotPicked.size() > 1) {
-        Suspect *A = suspectsNotPicked.back();
-        suspectsNotPicked.pop_back();
-        Suspect *B = suspectsNotPicked.back();
-        suspectsNotPicked.pop_back();
-
-        A->setAlibi(B);
-        B->setAlibi(A);
-    }
+    // Pick a random suspect to be the killer and the next suspect to be the victim
+    int killerIndex = rand() % suspects.size();
+    int victimIndex = (killerIndex + 1) % suspects.size();
+    suspects[killerIndex].setType(SUS_KILLER);
+    suspects[victimIndex].setType(SUS_VICTIM);
 
     // Put all suspect in suspects to a randomly selected room
-    for (int i = 0; i < this->suspects.size(); i++) {
+    for (int i = 0; i < suspects.size(); i++) {
         Room *randomRoom = &this->rooms[rand() % this->rooms.size()];
-        randomRoom->addSuspect(&this->suspects[i]);
+        randomRoom->addSuspect(suspects[i]);
     }
 }
 
@@ -302,10 +283,10 @@ void Game::displayTower() {
             }
 
             // Display the first letter of each suspect in the room
-            vector<Suspect*> suspectsInRoom = this->rooms[row * ROOM_COLS + col].getSuspects();
+            vector<Suspect> suspectsInRoom = this->rooms[row * ROOM_COLS + col].getSuspects();
             string suspectLetters = "";
             for (int i = 0; i < suspectsInRoom.size(); i++) {
-                suspectLetters.append(" " + suspectsInRoom[i]->getName().substr(0, 1));
+                suspectLetters.append(" " + suspectsInRoom[i].getName().substr(0, 1));
             }
 
             // Example display format: | A B C D E F G * * * * * |
@@ -347,7 +328,7 @@ void Game::displayRoom() {
     Room *currentRoom = this->player.getRoom();
 
     // Display the current room's image and description
-    cout << currentRoom->getImage();
+    cout << readFile(currentRoom->getImagePath());
     cout << "|                                                                             |" << endl;
 
     // Display each item that exists in the current room
@@ -363,21 +344,21 @@ void Game::displayRoom() {
     } else {
         itemsString += '-';
     }
-    cout << '|' << fixedWidth(itemsString, ' ', WINDOW_WIDTH) << '|' << endl;
+    cout << '|' << fixedWidth(itemsString, ' ', TOWER_WIDTH) << '|' << endl;
     cout << "|                                                                             |" << endl;
 
     // Display all suspect in the current room
-    vector<Suspect*> suspects = currentRoom->getSuspects();
+    vector<Suspect> suspects = currentRoom->getSuspects();
     string suspectsString = " SUSPECTS: ";
     if (suspects.size() > 0) {
-        suspectsString += suspects[0]->getName();
+        suspectsString += suspects[0].getName();
         for (int i = 1; i < suspects.size(); i++) {
-            suspectsString += ", " + suspects[i]->getName();
+            suspectsString += ", " + suspects[i].getName();
         }
     } else {
         suspectsString += '-';
     }
-    cout << '|' << fixedWidth(suspectsString, ' ', WINDOW_WIDTH) << '|' << endl;
+    cout << '|' << fixedWidth(suspectsString, ' ', TOWER_WIDTH) << '|' << endl;
     cout << "|                                                                             |" << endl;
 
     cout << "+-----------------------------------------------------------------------------+" << endl;
@@ -388,23 +369,23 @@ void Game::displayInventory() {
     cout << "+-----------------------------------------------------------------------------+" << endl;
 
     // Print title
-    cout << '|' << fixedWidth("", ' ', WINDOW_WIDTH) << '|' << endl;
-    cout << '|' << fixedWidth("  INVENTORY", ' ', WINDOW_WIDTH) << '|' << endl;
+    cout << '|' << fixedWidth("", ' ', TOWER_WIDTH) << '|' << endl;
+    cout << '|' << fixedWidth("  INVENTORY", ' ', TOWER_WIDTH) << '|' << endl;
 
     // Print items in player's inventory
     vector<Item> inventory = this->player.getInventory();
     for (int i = 0; i < inventory.size(); i++) {
-        cout << '|' << fixedWidth("", ' ', WINDOW_WIDTH) << '|' << endl;
-        cout << '|' << fixedWidth("  - " + inventory[i].getName(), ' ', WINDOW_WIDTH) << '|' << endl;
+        cout << '|' << fixedWidth("", ' ', TOWER_WIDTH) << '|' << endl;
+        cout << '|' << fixedWidth("  - " + inventory[i].getName(), ' ', TOWER_WIDTH) << '|' << endl;
     }
 
     // Print blank lines
-    for (int i = 0; i < WINDOW_HEIGHT - this->player.getInventory().size() * 2 - 2; i++) {
+    for (int i = 0; i < TOWER_HEIGHT - this->player.getInventory().size() * 2 - 2; i++) {
         if (i == 1 && inventory.size() == 0) {
             // Print empty. if nothing in inventory
-            cout << '|' << fixedWidth("  Empty.", ' ', WINDOW_WIDTH) << '|' << endl;
+            cout << '|' << fixedWidth("  Empty.", ' ', TOWER_WIDTH) << '|' << endl;
         } else {
-            cout << '|' << fixedWidth("", ' ', WINDOW_WIDTH) << '|' << endl;
+            cout << '|' << fixedWidth("", ' ', TOWER_WIDTH) << '|' << endl;
         }
     }
 
@@ -430,19 +411,8 @@ void Game::talk(string suspectName) {
     int suspectIndex = this->player.getRoom()->searchSuspect(suspectName);
 
     if (suspectIndex >= 0) {
-        this->player.getRoom()->getSuspects()[suspectIndex]->talk(this->player.getName());
+        this->player.getRoom()->getSuspects()[suspectIndex].talk(this->player.getName());
     }
 
     this->command();
-}
-
-// Move all suspect to the room where the player is in
-void Game::gather() {
-    for (int roomIndex = 0; roomIndex < this->rooms.size(); roomIndex++) {
-        for (int suspectIndex = this->rooms[roomIndex].getSuspects().size() - 1; suspectIndex >= 0; suspectIndex--) {
-            Suspect suspect = *this->rooms[roomIndex].getSuspects()[suspectIndex];
-            this->player.getRoom()->addSuspect(&suspect);
-            this->rooms[roomIndex].removeSuspect(suspectIndex);
-        }
-    }
 }

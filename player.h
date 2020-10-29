@@ -14,19 +14,18 @@
 
 class Player {
     public:
-        // TODO: Ask tutor why this default constructor must exists
         Player();
         Player(std::string name, Room *startingRoom);
 
-        // Accessor methods
         std::string getName();
         std::vector<std::string> getImage();
-        std::vector<Item> getInventory();
         Room *getRoom();
 
         void move(Direction direction);
+        std::vector<Item> getInventory();
         void pickupItem(std::string itemName);
         void dropItem(std::string itemName);
+        void inspectItem(std::string itemName);
 
     private:
         std::string name;
@@ -34,4 +33,5 @@ class Player {
         std::vector<Item> inventory;
         Room *room;
 
+        int searchInventory(std::string itemName);
 };

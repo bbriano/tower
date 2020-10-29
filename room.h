@@ -25,21 +25,34 @@ class Room {
         Room(std::string name, std::string imagePath);
 
         std::string getName();
-        std::string getImagePath();
-        std::vector<Item> getItems();
+        std::string getImage();
+        bool getItemHidden();
+        void search();
+        void setMurderRoom();
 
+        // Items
         void addItem(Item item);
         void removeItem(int index);
+        std::vector<Item> getItems();
+        int searchItem(std::string itemName);
 
+        // Suspects
+        void addSuspect(Suspect *suspect);
+        void removeSuspect(int index);
+        std::vector<Suspect*> getSuspects();
+        int searchSuspect(std::string suspectName);
+
+        // Neighbour
         void setNeighbour(Direction direction, Room *room);
         Room *getNeighbour(Direction direction);
 
     private:
         std::string name;
-        std::string imagePath;
+        std::string image;
+        bool itemHidden;
 
         // List of all suspects in the room
-        std::vector<Suspect> suspects;
+        std::vector<Suspect*> suspects;
 
         // List of all items in the room
         std::vector<Item> items;
