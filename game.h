@@ -39,16 +39,20 @@ class Game {
         bool getGameOver();
 
     private:
-        // Private variables
+        // Game objects
         Player player;
         std::vector<Room> rooms;
         std::vector<Item> items;
         std::vector<Suspect> suspects;
 
+        Room inventory;
         View view;
         Difficulty difficulty;
         bool gameOver;
         bool foundKiller;
+        Suspect *killer;
+        Room *murderRoom;
+        Item *murderWeapon;
 
         // Create game objects
         void createRooms();
@@ -65,7 +69,15 @@ class Game {
         void confirmQuit();
         void invalidCommand();
 
-        // Actions
         void talk(std::string suspectName);
         void gather();
+        Room *getRandomRoom();
+        Room *searchRoom(std::string roomName);
+        Suspect *searchSuspect(std::string suspectName);
+        Item *searchItem(std::string itemName);
+        std::vector<Item *> getInventory();
+        void pickup(std::string itemName);
+        void drop(std::string itemName);
+        void inspect(std::string itemName);
+        void accuse(std::string suspectName);
 };

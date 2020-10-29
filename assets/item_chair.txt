@@ -1,41 +1,35 @@
 +-----------------------------------------------------------------------------+
 |                                                                             |
-|  CHAIR                                                                      |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                  ASCII ART                                  |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-+-----------------------------------------------------------------------------+
-|                                                                             |
-|                                                                             |
-|  Item description                                                           |
-|                                                                             |
+|                           ;XMMMMMMMMWWWWNXK00Oxdoc;'.                       |
+|                           ;XMMMMMMMMMMMMMMMMMMMMMWNK0xc;.                   |
+|                            oWMMO;,,;:::ckWMMMNOxkOXWMMWWl                   |
+|                            lMMMo        ,KMMMK,   .oNMMMO.                  |
+|                            lMMMo        ;XMMMO.    .OMMMX;                  |
+|                           .kMMN:        ;XMMMO.    '0MMMK,                  |
+|                           cWMMk.        ;XMMMO.    cWMMMk.                  |
+|                          .kMMWc         lWMMMk.   .kMMWNl                   |
+|                          ;XMM0'        ,KMMNKc    ,KMMKd,                   |
+|                          :NMMx.       :KMMNl.     cWMMd.                    |
+|                          ;XMMk.      '0MMXc       dMMMl                     |
+|                          ;XMMNOxxdol;;odo,       :XMMK,                     |
+|                        ,o0MMMMMMMMMMWN0kxxdoollcl0MMMk.                     |
+|                       ;KMMMNd;,;codk0NWMMMMMMMMMMMMMMWX0c                   |
+|                      ;KMMMWx.       .;cldkO0KKNWWWWMMMMMd                   |
+|                    'dXMMMWk.             .....'',lXMMMWWO.                  |
+|                  .oNMMWOdc.                     'OMMMMMMMo                  |
+|                 .dXMMWKdcc:;,,''............'',c0MMNXNMMMk.                 |
+|                 dMMMMMMMMMMMMWWNXKKKKKKKKKXNNWWMMMMk:OMMMNl                 |
+|                 ,0MMMMKxddxxkO0KXXXNNNNNNNXK00XMMMNc ;KMMMNc                |
+|                 .kMMMMx.     .,cc;,,;;;,;,,...cXMMX;  lXNMM0'               |
+|                 ;XMMXk,      ,OKO:            .dMMMo  .;kMMWl               |
+|                 lMMMo        ;XMMXk;           :XMMO.   :NMMO.              |
+|                 dMMWc         lWMMMk.          '0MMK,   .oKXx.              |
+|                ,KMMX;         .OMMMX;          .xMMN:     ..                |
+|                oWMWd           lWMMMd.         .dMMNc                       |
+|               '0MMX;           .lkOk;          .xMMWc                       |
+|               cWMMk.                           .xMMWc                       |
+|              ,oMMMo                            .xMMWc                       |
+|             .lOMMX;                            .xMMW,                       |
+|              .WMMx.                             eMMc                        |
 |                                                                             |
 +-----------------------------------------------------------------------------+

@@ -8,6 +8,7 @@
 
 #pragma once
 #include <string>
+#include "room.h"
 
 enum SuspectType {
     SUS_NORMAL,
@@ -17,15 +18,17 @@ enum SuspectType {
 
 class Suspect {
     public:
-        Suspect(std::string name, std::string imagePath);
+        Suspect(std::string name);
         std::string getName();
         void setType(SuspectType type);
         void setAlibi(Suspect *alibi);
         void talk(std::string playerName);
+        void setRoom(Room *room);
+        Room *getRoom();
 
     private:
         std::string name;
-        std::string imagePath;
         SuspectType type;
         Suspect *alibi;
+        Room *room;
 };

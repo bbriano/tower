@@ -1,41 +1,35 @@
 +-----------------------------------------------------------------------------+
 |                                                                             |
-|  VASE                                                                       |
 |                                                                             |
 |                                                                             |
 |                                                                             |
 |                                                                             |
+|           'ool.                                                             |
+|          .OMMMXd'                                                           |
+|          .OMMWWMNk,                                                         |
+|          .OMMXl0WMNx;.                                                      |
+|          .OMMX. ,oKMWKo.                                                    |
+|           dMMW,   .dXMMXo,                                                  |
+|           :NMMl     .;dXMW0c.                                               |
+|            oWM0.       .dXWMXx,                                             |
+|            .xWWx.        .,xNMWk:.                                          |
+|             .xWMk.          'o0WMNOo'                                       |
+|              .OMWk.            ;x0NMNOo,                                    |
+|               ;WMMl               .:OMMWx'                                  |
+|                cXMX;                .;dKWN0d:.                              |
+|                 'OWNx'                  ,d0NMNkl'                           |
+|                  .kMMNl                    .c0MMWd.                         |
+|                   .dNMWx.                    .ckXWk.                        |
+|                     'kWMXo'                    ;0MMXk,                      |
+|                       ,kWMNkc,.              .xNMMMMMW0xl;.                 |
+|                         ,oOWMWXd,.          'KMMXkKWMMMMMMKo;.              |
+|                            ,lx0WWX0Od:,.  .cKMXl. .,ckXWMMMMWXkc,.          |
+|                                ,oxOXWMMW0OXMM0'       .,cxXMMMMMMNO;        |
+|                                    .,loxO0Oxl.            .;cd0NMMMx        |
+|                                                                .,;;.        |
 |                                                                             |
 |                                                                             |
 |                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                  ASCII ART                                  |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-+-----------------------------------------------------------------------------+
-|                                                                             |
-|                                                                             |
-|  Item description                                                           |
 |                                                                             |
 |                                                                             |
 +-----------------------------------------------------------------------------+

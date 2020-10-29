@@ -1,41 +1,35 @@
 +-----------------------------------------------------------------------------+
 |                                                                             |
-|  SCISSORS                                                                   |
 |                                                                             |
 |                                                                             |
 |                                                                             |
+|                                              .co;                           |
+|                                              dMMx                           |
+|                                            .oWWO.      l0Ko                 |
+|                                           .xWWd.    .lKWNx,                 |
+|                                           cWM0.     dMM0'                   |
+|                                          .0MMd   .;xWWO.                    |
+|                                          ;MMW;  cXMMXc.                     |
+|                                          oMM0,lOWW0o.                       |
+|                                          kMM00MWx'                          |
+|                                         'KMMMMXl                            |
+|                                       'l0MMWXd.                             |
+|                        ..',:lodxkkOO0XWMMMWd.                               |
+|                    .:k0NMMMMMMWXK00Ok0WMMMNc                                |
+|                 .cOXWN0kolc:,'... .,oKWMWWMX:                               |
+|               ;xXMWKl.           .dNMMMMKKMM0.                              |
+|             .xWMNx,.           'xXWXk0MMxcWMWc                              |
+|            'OMNo.          'cdkNMKc.,KMK, cKWNd.                            |
+|            oMMo         .lOWMMNOc. .kMWl   .dWMK'                           |
+|            oMMo     .,cdXMWOl;.    oWMO.     oWMO.                          |
+|            'OWN0OOO0NMWKx;.       'NMMc       cKMK;                         |
+|              :xO00kxd:'.          :MMW,        ;NMK,                        |
+|                                   cMMN'        ,XMN:                        |
+|                                   cMMN'      .dXMNo.                        |
+|                                   ,WMMc    .:0MWk'                          |
+|                                    lNMNOO0XWMXd,                            |
+|                                     'lkkkkxoc.                              |
 |                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                  ASCII ART                                  |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-+-----------------------------------------------------------------------------+
-|                                                                             |
-|                                                                             |
-|  Item description                                                           |
 |                                                                             |
 |                                                                             |
 +-----------------------------------------------------------------------------+

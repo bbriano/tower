@@ -11,9 +11,8 @@
 using namespace std;
 
 // Suspect constructor
-Suspect::Suspect(string name, string imagePath) {
+Suspect::Suspect(string name) {
     this->name = name;
-    this->imagePath = imagePath;
     this->type = SUS_NORMAL;
     this->alibi = NULL;
 }
@@ -21,6 +20,15 @@ Suspect::Suspect(string name, string imagePath) {
 // Return the name of the suspect
 string Suspect::getName() {
     return this->name;
+}
+
+Room *Suspect::getRoom() {
+    return this->room;
+}
+
+// Set the location of the suspect
+void Suspect::setRoom(Room *room) {
+    this->room = room;
 }
 
 // Mutator method to set the type of the suspect
@@ -37,17 +45,15 @@ void Suspect::setAlibi(Suspect *alibi) {
 void Suspect::talk(string playerName) {
     switch (this->type) {
         case SUS_NORMAL:
-            cout << "Hi " << playerName << ", my name is " << this->name << endl;
+        case SUS_KILLER:
+            cout << "Hi " << playerName << ", ";
 
             if (this->alibi == NULL) {
-                cout << "I was alone" << endl;
+                cout << "I was alone";
             } else {
-                cout << "I was with " << this->alibi->getName() << endl;
+                cout << "I was with " << this->alibi->getName();
             }
 
-            break;
-        case SUS_KILLER:
-            cout << "I am kille" << endl;
             break;
         case SUS_VICTIM:
             cout << "X_X";

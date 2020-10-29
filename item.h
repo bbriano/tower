@@ -8,16 +8,19 @@
 
 #pragma once
 #include <string>
+#include "room.h"
 
 class Item {
     public:
         Item(std::string name, std::string imagePath);
-
         std::string getName();
-
-        void display();
+        std::string getImage();
+        Room *getRoom();
+        void setRoom(Room *room);
+        void addBlood();
 
     private:
         std::string name;
-        std::string imagePath;
+        std::string image;
+        Room *room;
 };

@@ -1,41 +1,35 @@
 +-----------------------------------------------------------------------------+
 |                                                                             |
-|  BOWLING BALL                                                               |
 |                                                                             |
 |                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                  ASCII ART                                  |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-|                                                                             |
-+-----------------------------------------------------------------------------+
-|                                                                             |
-|                                                                             |
-|  Item description                                                           |
+|                                .,;ccllllllc:;,,.                            |
+|                      .';cldkO0KNWMMMMMMMMMMMMMWN0Okxdl:,..                  |
+|                 .,cdOXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWN0x,               |
+|               .c0WMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNd.             |
+|             .c0WMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM0,            |
+|          .:kXMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX:           |
+|         :0WMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWo          |
+|       .dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNc         |
+|       oWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMO.        |
+|      ,NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWl        |
+|      oMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMXKWMMK,       |
+|      dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXNMMMd       |
+|      xMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWMMMO.      |
+|      OMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd       |
+|     .KMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX:       |
+|     .0MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMO.       |
+|      OMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWMMMMMMMMMx.       |
+|      xMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX:        |
+|      ;NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNc         |
+|       cXMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNl          |
+|        ,OWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWd.          |
+|         .oNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWMMWd.           |
+|           :KMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNMMKc             |
+|            .cONMMMMWXNWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM0c.              |
+|               ,0MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN0xc.                |
+|                .lkXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXOxo:'.                   |
+|                   .,:oxxk0NMMMMMMMMMMMMMMMWN0kkko;.                         |
+|                           .;:cccclodddol:,'.                                |
 |                                                                             |
 |                                                                             |
 +-----------------------------------------------------------------------------+

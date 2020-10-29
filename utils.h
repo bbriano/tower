@@ -12,6 +12,15 @@
 // Returns the content of a file specified by fileName
 std::string readFile(std::string fileName);
 
+// Write content to file named fileName, overwrite if it exists
+void writeFile(std::string fileName, std::string content);
+
+// Split string to vector of strings based on character
+std::vector<std::string> stringSplit(std::string content, char character = '\n');
+
+// Join vector of string into one string used character
+std::string stringJoin(std::vector<std::string> lines, char character = '\n');
+
 // Print promp to screen then read and return input line
 std::string readInput(std::string prompt = "");
 
@@ -27,13 +36,8 @@ void clearScreen();
 // Return true if value is an integer string else return false
 bool isInteger(std::string value);
 
-// Returns a copy of value with all the uppercase characters replaced with its
-// lowercase equivalent
-// TODO think of a better argument name than value
+// Returns a copy of value with all the uppercase characters replaced with its lowercase equivalent
 std::string toLower(std::string value);
-
-// TODO: implement a function takes string as input and prints it in a frame
-void printFramed(std::string value);
 
 // Returns a string with a fixed width and align text to the left
 std::string fixedWidth(std::string text, char symbol, int width);

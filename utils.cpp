@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <vector>
 #include <sstream>
 #include "utils.h"
 
@@ -11,7 +12,7 @@ string readFile(string fileName) {
 
     // If file failed to open
     if (!file.is_open()) {
-        cout << "ERROR: cannot open file" << fileName << endl;
+        cout << "ERROR: cannot open file: " << fileName << endl;
         return "";
     }
 
@@ -23,8 +24,54 @@ string readFile(string fileName) {
         getline(file, line);
         content += '\n' + line;
     }
+    file.close();
 
     return content;
+}
+
+void writeFile(string fileName, string content) {
+    ofstream file;
+    file.open(fileName);
+
+    // If file failed to open
+    if (!file.is_open()) {
+        cout << "ERROR: cannot open file" << fileName << endl;
+        return;
+    }
+
+    file << content;
+    file.close();
+}
+
+vector<string> stringSplit(string content, char character) {
+    vector<string> lines;
+
+    // Push to lines when content matches character
+    int prev = 0;
+    for (int i = 0; i < content.length(); i++) {
+        if (content[i] == character) {
+            lines.push_back(content.substr(prev, i - prev));
+            prev = i + 1;
+        }
+    }
+
+    // Check if last element if delimitered else ignore
+    string end = content.substr(prev);
+    if (end.length() > 0) {
+        lines.push_back(end);
+    }
+
+    return lines;
+}
+
+string stringJoin(vector<string> lines, char character) {
+    string result = "";
+
+    for (int i = 0; i < lines.size(); i++) {
+        result += lines[i] + character;
+    }
+
+    return result;
 }
 
 string readInput(string prompt) {

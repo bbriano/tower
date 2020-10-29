@@ -10,18 +10,16 @@
  *
 ************************************************************/
 
-#include "game.h"
-#include "utils.h"
 #include <iostream>
 #include <ctime>
-#define TOWER_WIDTH 77  // Not including border
+#include <string>
+#include "main.h"
+#include "game.h"
+#include "utils.h"
+#define WINDOW_WIDTH 77   // Not including border
+#define WINDOW_HEIGHT 39  // Not including border
 
 using namespace std;
-
-void mainMenu();
-void runGame();
-void changeDifficulty();
-void showLeaderboard();
 
 bool hasExit = false;
 Difficulty difficulty = DIFF_MEDIUM;
@@ -43,12 +41,7 @@ void mainMenu() {
 
     // Display main menu screen
     cout << readFile("assets/cover_screen.txt");
-    string diff;
-    if (difficulty == DIFF_EASY) diff = "[Easy]";
-    else if (difficulty == DIFF_MEDIUM) diff = "[Medium]";
-    else if (difficulty == DIFF_HARD) diff = "[Hard]";
-    else if (difficulty == DIFF_NIGHTMARE) diff = "[Nightmare]";
-    diff = fixedWidth(diff, ' ', 14);
+    string diff = fixedWidth(difficultyString(), ' ', 14);
     cout << "|                                      |                                      |" << endl;
     cout << "|  1. Start game                       |  3. Show leaderboard                 |" << endl;
     cout << "|                                      |                                      |" << endl;
@@ -111,10 +104,13 @@ void runGame() {
 
     int playedTimeSeconds = time(NULL) - gameStartTimeSeconds;
     cout << "|                                                                             |" << endl;
-    cout << '|' + fixedWidth(" TIME: " + toHourMinuteSeconds(playedTimeSeconds), ' ', TOWER_WIDTH) << '|' << endl;
+    cout << '|' + fixedWidth("  TIME: " + toHourMinuteSeconds(playedTimeSeconds), ' ', WINDOW_WIDTH) << '|' << endl;
     cout << "|                                                                             |" << endl;
     cout << "+-----------------------------------------------------------------------------+" << endl;
     pause();
+
+    // Add time to leaderboard if win
+    if (game.getFoundKiller()) addToLeaderboard(playedTimeSeconds, playerName);
 }
 
 // Show the difficulty options to the player than prompt the player to pick one difficulty level
@@ -129,22 +125,85 @@ void changeDifficulty() {
         option = readInputInt("Pick an option (1-4):");
     } while (option < 1 || option > 4);
 
-    // TODO: try to do without iffing. use the Enum
-    if (option == 1) {
-        difficulty = DIFF_EASY;
-    } else if (option == 2) {
-        difficulty = DIFF_MEDIUM;
-    } else if (option == 3) {
-        difficulty = DIFF_HARD;
-    } else if (option == 4) {
-        difficulty = DIFF_NIGHTMARE;
-    }
+    // Set difficulty based on user input
+    difficulty = static_cast<Difficulty>(option - 1);
 }
 
 // Display leaderboard. Wait for user before continuing
-// TODO: Show leaderboard instead of help screen
 void showLeaderboard() {
     clearScreen();
-    cout << readFile("assets/help_screen.txt");
+    cout << "+-----------------------------------------------------------------------------+" << endl;
+
+    vector<string> leaderboard = stringSplit(readFile(leaderboardFileName()), '\n');
+    leaderboardFileName();
+
+    cout << "|                                                                             |" << endl;
+    cout << '|' << fixedWidth("  LEADERBOARD " + difficultyString(), ' ', WINDOW_WIDTH) << '|' << endl;
+
+    for (int i = 0; i < leaderboard.size(); i++) {
+        int spaceIndex = leaderboard[i].find(' ');
+        string time = toHourMinuteSeconds(stoi(leaderboard[i].substr(0, spaceIndex)));
+        string playerName = leaderboard[i].substr(spaceIndex + 1);
+
+        int dotCount = WINDOW_WIDTH - playerName.length() - time.length() - 6;
+        cout << "|                                                                             |" << endl;
+        cout << "|  " << playerName << ' ' << fixedWidth("", '.', dotCount) << ' ' << time << "  |" << endl;
+    }
+
+    int blankLineCount = WINDOW_HEIGHT - leaderboard.size() * 2 - 2;
+    for (int i = 0; i < blankLineCount; i++) {
+        cout << "|                                                                             |" << endl;
+    }
+
+    cout << "+-----------------------------------------------------------------------------+" << endl;
     pause();
+}
+
+// Add a new entry to leaderboard, insert in correct positon sorted in ascending order by time
+void addToLeaderboard(int timeSeconds, string playerName) {
+    vector<string> leaderboard = stringSplit(readFile(leaderboardFileName()), '\n');
+    string entry = to_string(timeSeconds) + ' ' + playerName;
+
+    if (leaderboard.size() > 0) {
+        // If leaderboard is not empty, insert entry to correct location
+        for (int i = 0; i < leaderboard.size(); i++) {
+            int spaceIndex = leaderboard[i].find(' ');
+            int time = stoi(leaderboard[i].substr(0, spaceIndex));
+            if (timeSeconds < time) {
+                leaderboard.insert(leaderboard.begin() + i, entry);
+                break;
+            }
+        }
+    } else {
+        // Else append to leaderboard as first entry
+        leaderboard.push_back(entry);
+    }
+
+    writeFile(leaderboardFileName(), stringJoin(leaderboard));
+}
+
+string difficultyString() {
+    switch (difficulty) {
+        case DIFF_EASY:
+            return "[EASY]";
+        case DIFF_MEDIUM:
+            return "[MEDIUM]";
+        case DIFF_HARD:
+            return "[HARD]";
+        case DIFF_NIGHTMARE:
+            return "[NIGTHMARE]";
+    }
+}
+
+string leaderboardFileName() {
+    switch (difficulty) {
+        case DIFF_EASY:
+           return "leaderboard_easy.txt";
+        case DIFF_MEDIUM:
+           return "leaderboard_medium.txt";
+        case DIFF_HARD:
+            return "leaderboard_hard.txt";
+        case DIFF_NIGHTMARE:
+            return "leaderboard_nigthmare.txt";
+    }
 }
