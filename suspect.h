@@ -25,6 +25,7 @@ class Suspect {
         void talk(std::string playerName);
         void setRoom(Room *room);
         Room *getRoom();
+        void move(Direction direction);
 
     private:
         std::string name;

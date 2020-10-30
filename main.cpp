@@ -41,7 +41,7 @@ void mainMenu() {
 
     // Display main menu screen
     cout << readFile("assets/cover_screen.txt");
-    string diff = fixedWidth(difficultyString(), ' ', 14);
+    string diff = fixedWidth(difficultyString(difficulty), ' ', 14);
     cout << "|                                      |                                      |" << endl;
     cout << "|  1. Start game                       |  3. Show leaderboard                 |" << endl;
     cout << "|                                      |                                      |" << endl;
@@ -64,7 +64,7 @@ void mainMenu() {
             changeDifficulty();
             break;
         case 3:
-            showLeaderboard();
+            showLeaderboards();
             break;
         case 4:
             hasExit = true;
@@ -96,12 +96,13 @@ void runGame() {
     // Display end screen congratulating or ridiculing the player
     // depending on if they win or lose. Show time played
     clearScreen();
-    if (game.getFoundKiller()) {
+    if (game.getGameWin()) {
         cout << readFile("assets/you_win.txt");
     } else {
         cout << readFile("assets/game_over.txt");
     }
 
+    // Display the time played
     int playedTimeSeconds = time(NULL) - gameStartTimeSeconds;
     cout << "|                                                                             |" << endl;
     cout << '|' + fixedWidth("  TIME: " + toHourMinuteSeconds(playedTimeSeconds), ' ', WINDOW_WIDTH) << '|' << endl;
@@ -110,7 +111,7 @@ void runGame() {
     pause();
 
     // Add time to leaderboard if win
-    if (game.getFoundKiller()) addToLeaderboard(playedTimeSeconds, playerName);
+    if (game.getGameWin()) addToLeaderboard(playedTimeSeconds, playerName);
 }
 
 // Show the difficulty options to the player than prompt the player to pick one difficulty level
@@ -129,16 +130,24 @@ void changeDifficulty() {
     difficulty = static_cast<Difficulty>(option - 1);
 }
 
+// Show all leaderboards one by one
+void showLeaderboards() {
+    showLeaderboard(DIFF_EASY);
+    showLeaderboard(DIFF_MEDIUM);
+    showLeaderboard(DIFF_HARD);
+    showLeaderboard(DIFF_NIGHTMARE);
+}
+
 // Display leaderboard. Wait for user before continuing
-void showLeaderboard() {
+void showLeaderboard(Difficulty difficulty) {
     clearScreen();
     cout << "+-----------------------------------------------------------------------------+" << endl;
 
-    vector<string> leaderboard = stringSplit(readFile(leaderboardFileName()), '\n');
-    leaderboardFileName();
+    /* vector<string> leaderboard = stringSplit(readFile(leaderboardFileName()), '\n'); */
+    vector<string> leaderboard = stringSplit(readFile(leaderboardFileName(difficulty)), '\n');
 
     cout << "|                                                                             |" << endl;
-    cout << '|' << fixedWidth("  LEADERBOARD " + difficultyString(), ' ', WINDOW_WIDTH) << '|' << endl;
+    cout << '|' << fixedWidth("  LEADERBOARD " + difficultyString(difficulty), ' ', WINDOW_WIDTH) << '|' << endl;
 
     for (int i = 0; i < leaderboard.size(); i++) {
         int spaceIndex = leaderboard[i].find(' ');
@@ -161,7 +170,7 @@ void showLeaderboard() {
 
 // Add a new entry to leaderboard, insert in correct positon sorted in ascending order by time
 void addToLeaderboard(int timeSeconds, string playerName) {
-    vector<string> leaderboard = stringSplit(readFile(leaderboardFileName()), '\n');
+    vector<string> leaderboard = stringSplit(readFile(leaderboardFileName(difficulty)), '\n');
     string entry = to_string(timeSeconds) + ' ' + playerName;
 
     if (leaderboard.size() > 0) {
@@ -179,10 +188,10 @@ void addToLeaderboard(int timeSeconds, string playerName) {
         leaderboard.push_back(entry);
     }
 
-    writeFile(leaderboardFileName(), stringJoin(leaderboard));
+    writeFile(leaderboardFileName(difficulty), stringJoin(leaderboard));
 }
 
-string difficultyString() {
+string difficultyString(Difficulty difficulty) {
     switch (difficulty) {
         case DIFF_EASY:
             return "[EASY]";
@@ -195,7 +204,7 @@ string difficultyString() {
     }
 }
 
-string leaderboardFileName() {
+string leaderboardFileName(Difficulty difficulty) {
     switch (difficulty) {
         case DIFF_EASY:
            return "leaderboard_easy.txt";

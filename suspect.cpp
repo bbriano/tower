@@ -61,3 +61,10 @@ void Suspect::talk(string playerName) {
     }
     cout << '\n' << endl;
 }
+
+// Move to neighbouring room based on given direction
+void Suspect::move(Direction direction) {
+    Room *destination = this->room->getNeighbour(direction);
+    // Move to destination if it exists
+    if (destination) this->room = destination;
+}

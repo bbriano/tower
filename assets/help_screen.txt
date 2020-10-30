@@ -22,13 +22,13 @@
 |  //> search                  Search for items in the current room           |
 |  //> pickup {item}           Pickup an item in the room                     |
 |  //> drop {item}             Drop item in inventory to room                 |
-|  //> inspect {item}          Get a close look of an item in your inventory  |
+|  //> examine {item}          Get a close look of an item in your inventory  |
 |                                                                             |
-|  //> talk {suspect}          Get details of suspect (must be in same room)  |
+|  //> question {suspect}      Get details of suspect (must be in same room)  |
 |  //> accuse {suspect}        Accuse suspect is murderer                     |
+|  //> clear                   Clear output from previous commads             |
 |                                                                             |
 |  //> quit                    If you want to give up                         |
-|                                                                             |
 |                                                                             |
 |                                                                             |
 |                                                                             |

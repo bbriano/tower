@@ -32,13 +32,10 @@ vector<string> Player::getImage() {
     return this->image;
 }
 
-Room *Player::getRoom() {
-    return this->room;
+void Player::setRoom(Room *room) {
+    this->room = room;
 }
 
-void Player::move(Direction direction) {
-    Room *destination = this->room->getNeighbour(direction);
-    if (destination != NULL) {
-        this->room = destination;
-    }
+Room *Player::getRoom() {
+    return this->room;
 }

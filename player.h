@@ -18,8 +18,8 @@ class Player {
         Player(std::string name, Room *startingRoom);
         std::string getName();
         std::vector<std::string> getImage();
-        Room * getRoom();
-        void move(Direction direction);
+        void setRoom(Room *room);
+        Room *getRoom();
 
     private:
         std::string name;

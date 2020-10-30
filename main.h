@@ -4,7 +4,8 @@
 void mainMenu();
 void runGame();
 void changeDifficulty();
-void showLeaderboard();
+void showLeaderboards();
+void showLeaderboard(Difficulty difficulty);
 void addToLeaderboard(int timeSeconds, std::string playerName);
-std::string difficultyString();
-std::string leaderboardFileName();
+std::string difficultyString(Difficulty difficulty);
+std::string leaderboardFileName(Difficulty difficulty);

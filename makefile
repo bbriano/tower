@@ -1,5 +1,5 @@
 troubledtower: game.o item.o main.o player.o room.o suspect.o utils.o
-	clang++ game.o item.o main.o player.o room.o suspect.o utils.o -o troubledtower
+	clang++ game.o item.o main.o player.o room.o suspect.o utils.o -o tower
 
 game.o: game.h game.cpp
 	clang++ -c game.cpp

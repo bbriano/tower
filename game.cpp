@@ -8,11 +8,6 @@
  *
 ************************************************************/
 
-// TODO
-// Write a reflection document 300-500 words
-// Dead person cant move
-// Dont alibi a dead person or self person
-
 #include <iostream>
 #include <sstream>
 #include <algorithm>
@@ -43,11 +38,20 @@ Game::Game(string playerName, Difficulty difficulty) {
     this->player = Player(playerName, &startingRoom);
     this->inventory = Room("Inventory");
 
+    // Initialize pointers to NULL
+    this->killer = NULL;
+    this->victim = NULL;
+    this->murderRoom = NULL;
+    this->murderWeapon = NULL;
+
     // Initialize variables
     this->view = VIEW_TOWER;
     this->difficulty = difficulty;
+    this->moveCount = 0;
+    this->searchCount = 0;
+    this->questionCount = 0;
     this->gameOver = false;
-    this->foundKiller = false;
+    this->gameWin = false;
 }
 
 // Display help screen. Wait for user before continuing
@@ -105,31 +109,33 @@ void Game::command() {
     else if (command == "inv") this->view = VIEW_INVENTORY;
 
     // Movement
-    else if (command == "left") this->player.move(DIR_LEFT);
-    else if (command == "right") this->player.move(DIR_RIGHT);
-    else if (command == "up") this->player.move(DIR_UP);
-    else if (command == "down") this->player.move(DIR_DOWN);
+    else if (command == "left") this->move(DIR_LEFT);
+    else if (command == "right") this->move(DIR_RIGHT);
+    else if (command == "up") this->move(DIR_UP);
+    else if (command == "down") this->move(DIR_DOWN);
 
     // Item Interactions
-    else if (command == "search") this->player.getRoom()->search();
+    else if (command == "search") this->search();
     else if (command == "pickup") this->pickup(argument);
     else if (command == "drop") this->drop(argument);
-    else if (command == "inspect") this->inspect(argument);
+    else if (command == "examine") this->examine(argument);
 
     // Supect Interactions
-    else if (command == "talk") this->talk(argument);
+    else if (command == "question") this->question(argument);
     else if (command == "gather") this->gather();
     else if (command == "accuse") this->accuse(argument);
 
     // Utility commands
     else if (command == "help") this->showHelpScreen();
-    else if (command == "easter") cout << "egg" << endl, this->command();
+    else if (command == "note") this->note(argument);
+    else if (command == "clear");
+    else if (command == "easter") cout << "egg\n" << endl, this->command();
     else if (command == "quit") this->confirmQuit();
     else this->invalidCommand();
 }
 
-bool Game::getFoundKiller() {
-    return this->foundKiller;
+bool Game::getGameWin() {
+    return this->gameWin;
 }
 
 bool Game::getGameOver() {
@@ -239,15 +245,16 @@ void Game::createSuspects() {
         suspectCollection[randomIndex] = temp;
     }
 
+    // Assign victim
+    this->victim = suspectCollection.back();
+    suspectCollection.pop_back();
+    this->victim->setType(SUS_VICTIM);
+
     // Assign killer
     this->killer = suspectCollection.back();
+    suspectCollection.pop_back();
     this->killer->setType(SUS_KILLER);
     this->killer->setAlibi(suspectCollection[rand() % suspectCollection.size()]);
-    suspectCollection.pop_back();
-
-    // Assign victim
-    suspectCollection.back()->setType(SUS_VICTIM);
-    suspectCollection.pop_back();
 
     // Set alibi pairs
     while (suspectCollection.size() > 1) {
@@ -441,26 +448,34 @@ void Game::invalidCommand() {
 }
 
 // Display a response from the suspect named suspectName
-void Game::talk(string suspectName) {
+void Game::question(string suspectName) {
     Suspect *suspect = this->searchSuspect(suspectName);
+
+    // Suspect can only talk if in the same room as player
     if (suspect && suspect->getRoom() == this->player.getRoom()) {
         suspect->talk(this->player.getName());
+    } else {
+        cout << "'" << suspectName << "' not found in room" << endl;
     }
-    /* int suspectIndex = this->searchSuspect(suspectName); */
 
-    /* if (suspectIndex >= 0) { */
-    /*     if (this->suspects[suspectIndex].getRoom() == this->player.getRoom()) { */
-    /*         suspects[suspectIndex].talk(this->player.getName()); */
-    /*     } */
-    /* } */
+    this->questionCount++;
 
-    this->command();
+    // If questioned more than 3 times in nightmare mode, end the game
+    if (this->questionCount > 3) {
+        cout << "Shhhh....\n" << endl;
+        pause();
+        this->gameOver = true;
+    } else {
+        this->command();
+    }
 }
 
 // Move all suspect to the room where the player is in
 void Game::gather() {
     for (int i = 0; i < this->suspects.size(); i++) {
-        this->suspects[i].setRoom(this->player.getRoom());
+        if (&this->suspects[i] != this->victim) {
+            this->suspects[i].setRoom(this->player.getRoom());
+        }
     }
 }
 
@@ -511,6 +526,12 @@ void Game::pickup(string itemName) {
     } else {
         this->command();
     }
+
+    // If easy mode, picking up all items in the tower results in a win
+    if (this->difficulty == DIFF_EASY && this->getInventory().size() == this->items.size()) {
+        this->gameWin = true;
+        this->gameOver = true;
+    }
 }
 
 // Drop item named itemName to player's room if found in inventory
@@ -525,7 +546,7 @@ void Game::drop(string itemName) {
 }
 
 // Display item named itemName in player's inventory if exists
-void Game::inspect(string itemName) {
+void Game::examine(string itemName) {
     Item *item = this->searchItem(itemName);
 
     if (item && item->getRoom() == &this->inventory) {
@@ -544,21 +565,25 @@ void Game::inspect(string itemName) {
 }
 
 void Game::accuse(string suspectName) {
-    // TODO better behaviour
+    if (this->difficulty == DIFF_NIGHTMARE) {
+        cout << "Sorry, Not stabbing is not an option\n" << endl;
+        return;
+    }
 
     Suspect *suspect = this->searchSuspect(suspectName);
     if (suspect) {
         if (suspect == this->killer) {
-            cout << "That is infact the killer\n" << endl;
-            string roomName = readInput("Where dit the murder took place? ");
+            string roomName = readInput("Where did the murder took place? ");
+            cout << endl;
             Room *room = this->searchRoom(roomName);
             if (room) {
                 if (room == this->murderRoom) {
                     string itemName = readInput("What weapon did the murderer used? ");
+                    cout << endl;
                     Item *weapon = searchItem(itemName);
                     if (weapon) {
                         if (weapon == this->murderWeapon) {
-                            this->foundKiller = true;
+                            this->gameWin = true;
                             this->gameOver = true;
                         } else this->gameOver = true;
                     } else {
@@ -588,4 +613,98 @@ vector<Item *> Game::getInventory() {
     }
 
     return inventoryItems;
+}
+
+// Move to room besides current player room if it exists
+void Game::move(Direction direction) {
+    // Move the player
+    Room *destination = this->player.getRoom()->getNeighbour(direction);
+    if (destination != NULL) {
+        this->player.setRoom(destination);
+        this->moveCount++;
+    }
+
+    // Randomly move the suspects
+    for (int i = 0; i < this->suspects.size(); i++) {
+        Direction randomDirection = static_cast<Direction>(rand() % 4);
+        this->suspects[i].move(randomDirection);
+    }
+
+    // If move more than 10 times in hard mode, end the game
+    if (this->difficulty == DIFF_HARD && this->moveCount > 10) {
+        cout << "Hippity hoppity.. too much movement, your leg break\n" << endl;
+        pause();
+        this->gameOver = true;
+    }
+}
+
+// Search the current room the player is in
+void Game::search() {
+    this->player.getRoom()->search();
+    this->searchCount++;
+
+    // If searched more than 3 rooms in nightmare mode, end the game
+    if (this->difficulty == DIFF_NIGHTMARE && this->searchCount > 3) {
+        cout << "Don't search too much or you will be one getting searched >:D\n" << endl;
+        pause();
+        this->gameOver = true;
+    }
+}
+
+// Stab a suspect for the nightmare mode
+void Game::stab(string suspectName) {
+    // Check if game is in nightmare difficulty and exit function if not
+    if (this->difficulty != DIFF_NIGHTMARE) {
+        cout << "No stabbing in this mode.\n" << endl;
+        this->command();
+        return;
+    }
+
+    // Check if player have the knife
+    Item *foundKnife = this->searchItem("knife");
+    if (!foundKnife) {
+        cout << "You don't have a knife...\n" << endl;
+        return;
+    }
+
+    // Win if stabbed the killer, else end the game with a loss
+    Suspect *suspect = this->searchSuspect(suspectName);
+    if (suspect && suspect->getRoom() == this->player.getRoom()) {
+        if (suspect == this->killer) {
+            this->gameWin = true;
+        } else {
+            cout << "Congratulation on stabbing an innocent person..\n" << endl;
+            pause();
+        }
+        this->gameOver = true;
+    } else {
+        cout << "Suspect named '" << suspectName << "' not found in this room\n" << endl;
+    }
+}
+
+// Display notes if content is empty else add content to notes
+void Game::note(string content) {
+    if (content != "") {
+        // Append content to notes
+        this->notes.push_back(content);
+    } else {
+        // Display notes
+        clearScreen();
+        cout << "+-----------------------------------------------------------------------------+" << endl;
+
+        // Print each line in notes
+        for (int i = 0; i < this->notes.size(); i++) {
+            cout << "|                                                                             |" << endl;
+            cout << "|  " << fixedWidth(this->notes[i], ' ', WINDOW_WIDTH - 4) << "  |" << endl;
+        }
+
+        // Print blank lines to fill the screen
+        int blankCount = WINDOW_HEIGHT - 2 * this->notes.size();
+        for (int i = 0; i < blankCount; i++) {
+            cout << "|                                                                             |" << endl;
+        }
+
+        cout << "+-----------------------------------------------------------------------------+" << endl;
+        pause();
+    }
 }
