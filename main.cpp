@@ -204,6 +204,6 @@ string leaderboardFileName() {
         case DIFF_HARD:
             return "leaderboard_hard.txt";
         case DIFF_NIGHTMARE:
-            return "leaderboard_nigthmare.txt";
+            return "leaderboard_nightmare.txt";
     }
 }

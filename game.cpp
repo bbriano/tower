@@ -8,10 +8,10 @@
  *
 ************************************************************/
 
-// TODO:
-// - Show leaderboard
-// - Player move count
-// - Write a reflection document 300-500 words
+// TODO
+// Write a reflection document 300-500 words
+// Dead person cant move
+// Dont alibi a dead person or self person
 
 #include <iostream>
 #include <sstream>
