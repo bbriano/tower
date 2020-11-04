@@ -28,7 +28,8 @@ class Room {
         std::string getImage();
         bool getItemHidden();
         void search();
-        void addBlood();
+        bool getMurderRoom();
+        void setMurderRoom();
 
         // Neighbour
         void setNeighbour(Direction direction, Room *room);
@@ -38,5 +39,6 @@ class Room {
         std::string name;
         std::string image;
         bool itemHidden;
+        bool murderRoom;
         std::map<Direction, Room*> neighbour;  // Pointer to neighbouring room in all four direction
 };

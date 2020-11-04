@@ -17,10 +17,12 @@ class Item {
         std::string getImage();
         Room *getLocation();
         void setLocation(Room *room);
-        void addBlood();
+        bool getMurderWeapon();
+        void setMurderWeapon();
 
     private:
         std::string name;
         std::string image;
+        bool murderWeapon;
         Room *location;
 };

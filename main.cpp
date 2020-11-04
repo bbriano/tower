@@ -16,7 +16,7 @@
 #include "game.h"
 #include "utils.h"
 #define WINDOW_WIDTH 77   // Not including border
-#define WINDOW_HEIGHT 39  // Not including border
+#define WINDOW_HEIGHT 41  // Not including border
 
 using namespace std;
 

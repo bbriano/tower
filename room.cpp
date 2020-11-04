@@ -46,12 +46,17 @@ void Room::search() {
     this->itemHidden = false;
 }
 
-// Add blood to room image
-void Room::addBlood() {
-    string blood = "BLOOD";
+bool Room::getMurderRoom() {
+    return this->murderRoom;
+}
+
+// Set murder room and add blood to room
+void Room::setMurderRoom() {
+    this->murderRoom = true;
 
     // Replace random column of every other line with "BLOOD"
-    for (int i = 1; i <= 32; i++) {
+    string blood = "BLOOD";
+    for (int i = 1; i <= 33; i++) {
         if (i % 2 == 0) {
             int posible = WINDOW_WIDTH - blood.length() + 1;
             int position = i * 80 + 1 + rand() % posible;

@@ -20,6 +20,7 @@ class Suspect {
     public:
         Suspect(std::string name);
         std::string getName();
+        SuspectType getType();
         void setType(SuspectType type);
         void setAlibi(Suspect *alibi);
         void talk(std::string playerName);

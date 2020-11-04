@@ -7,27 +7,29 @@
 |                                                                             |
 |                                                                             |
 |                                                                             |
+|                                                                             |
+|                                                                             |
 |  DIFFICULTY                                                                 |
 |                                                                             |
-|  1. EASY                                                                    |
 |                                                                             |
-|       What are you doing?                                                   |
-|                                                                             |
-|                                                                             |
-|  2. MEDIUM                                                                  |
-|                                                                             |
-|       Sure.                                                                 |
+|   1. EASY         Pickup all items as fast as possible                      |
+|                       gotta go                                              |
+|                       fast                                                  |
 |                                                                             |
 |                                                                             |
-|  3. HARD                                                                    |
+|   2. MEDIUM       Accuse killer                                             |
+|                       specify murder room                                   |
+|                       specify murder weapon                                 |
 |                                                                             |
-|       Now that's better                                                     |
+|                                                                             |
+|   3. HARD         Just like MEDIUM but with:                                |
+|                       20 move limit                                         |
+|                       no gather command                                     |
 |                                                                             |
 |                                                                             |
-|  4. NIGHTMARE                                                               |
-|                                                                             |
-|       Good luck :)                                                          |
-|                                                                             |
+|   4. NIGHTMARE    Find and stab the killer (no gather, question limit: 3)   |
+|                       no gather command                                     |
+|                       question limit: 3                                     |
 |                                                                             |
 |                                                                             |
 |                                                                             |

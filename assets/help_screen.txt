@@ -24,13 +24,15 @@
 |  //> drop {item}             Drop item in inventory to room                 |
 |  //> examine {item}          Get a close look of an item in your inventory  |
 |                                                                             |
+|  //> gather                  Gather all suspect to current room             |
 |  //> question {suspect}      Get details of suspect (must be in same room)  |
 |  //> accuse {suspect}        Accuse suspect is murderer                     |
+|  //> stab {suspect}          Stab the suspect (only in nightmare mode)      |
+|                                                                             |
+|  //> note {content}          To add {content} to notebook                   |
+|  //> note                    To see contents of notebook                    |
 |  //> clear                   Clear output from previous commads             |
-|                                                                             |
 |  //> quit                    If you want to give up                         |
-|                                                                             |
-|                                                                             |
 |                                                                             |
 |                                                                             |
 |                                                                             |

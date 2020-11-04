@@ -32,12 +32,17 @@ string Item::getImage() {
     return this->image;
 }
 
-// Add blood stains to item image
-void Item::addBlood() {
-    string blood = "BLOOD";
+bool Item::getMurderWeapon() {
+    return this->murderWeapon;
+}
+
+// Set murder room and add blood stains to item image
+void Item::setMurderWeapon() {
+    this->murderWeapon = true;
 
     // Replace random column of every other line with "BLOOD"
-    for (int i = 1; i <= 32; i++) {
+    string blood = "BLOOD";
+    for (int i = 1; i <= 34; i++) {
         if (i % 2 == 0) {
             int posible = WINDOW_WIDTH - blood.length() + 1;
             int position = i * 80 + 1 + rand() % posible;

@@ -43,15 +43,18 @@ class Game {
         std::vector<Room> rooms;
         std::vector<Item> items;
         std::vector<Suspect> suspects;
-
+        std::vector<std::string> notes;
         Player player;
         Room inventory;
 
-        Suspect *killer;
-        Suspect *victim;
-        Room *murderRoom;
-        Item *murderWeapon;
-        std::vector<std::string> notes;
+        Room *getRandomRoom();
+        Room *searchRoom(std::string roomName);
+        Suspect *searchSuspect(std::string suspectName);
+        Item *searchItem(std::string itemName);
+        Suspect *getVictim();
+        Suspect *getKiller();
+        Room *getMurderRoom();
+        Item *getMurderWeapon();
 
         View view;
         Difficulty difficulty;
@@ -78,10 +81,6 @@ class Game {
 
         void question(std::string suspectName);
         void gather();
-        Room *getRandomRoom();
-        Room *searchRoom(std::string roomName);
-        Suspect *searchSuspect(std::string suspectName);
-        Item *searchItem(std::string itemName);
         std::vector<Item *> getInventory();
         void pickup(std::string itemName);
         void drop(std::string itemName);
@@ -91,4 +90,7 @@ class Game {
         void search();
         void stab(std::string suspectName);
         void note(std::string);
+        void displayItem(Item *item);
+        void examineAll();
+        void displayStatusBar();
 };

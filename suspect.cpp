@@ -31,6 +31,11 @@ void Suspect::setRoom(Room *room) {
     this->room = room;
 }
 
+// Get the type of suspect
+SuspectType Suspect::getType() {
+    return this->type;
+}
+
 // Mutator method to set the type of the suspect
 void Suspect::setType(SuspectType type) {
     this->type = type;
@@ -49,17 +54,16 @@ void Suspect::talk(string playerName) {
             cout << "Hi " << playerName << ", ";
 
             if (this->alibi == NULL) {
-                cout << "I was alone";
+                cout << "I was alone" << endl;
             } else {
-                cout << "I was with " << this->alibi->getName();
+                cout << "I was with " << this->alibi->getName() << endl;
             }
 
             break;
         case SUS_VICTIM:
-            cout << "X_X";
+            cout << "X_X" << endl;
             break;
     }
-    cout << '\n' << endl;
 }
 
 // Move to neighbouring room based on given direction
