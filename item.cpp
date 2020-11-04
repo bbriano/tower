@@ -20,12 +20,12 @@ string Item::getName() {
     return this->name;
 }
 
-Room *Item::getRoom() {
-    return this->room;
+Room *Item::getLocation() {
+    return this->location;
 }
 
-void Item::setRoom(Room *room) {
-    this->room = room;
+void Item::setLocation(Room *room) {
+    this->location = room;
 }
 
 string Item::getImage() {

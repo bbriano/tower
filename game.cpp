@@ -125,10 +125,12 @@ void Game::command() {
     else if (command == "gather") this->gather();
     else if (command == "accuse") this->accuse(argument);
 
+    else if (command == "stab") this->stab(argument);
+
     // Utility commands
     else if (command == "help") this->showHelpScreen();
-    else if (command == "note") this->note(argument);
     else if (command == "clear");
+    else if (command == "note") this->note(argument);
     else if (command == "easter") cout << "egg\n" << endl, this->command();
     else if (command == "quit") this->confirmQuit();
     else this->invalidCommand();
@@ -211,7 +213,7 @@ void Game::createItems() {
 
     // Put all item in items to a randomly selected room
     for (int i = 0; i < this->items.size(); i++) {
-        this->items[i].setRoom(this->getRandomRoom());
+        this->items[i].setLocation(this->getRandomRoom());
     }
 }
 
@@ -305,7 +307,7 @@ void Game::displayTower() {
                 itemString = "? ";
             } else {
                 for (int i = 0; i < this->items.size(); i++) {
-                    if (items[i].getRoom() == currentRoom) {
+                    if (items[i].getLocation() == currentRoom) {
                         itemString += "* ";
                     }
                 }
@@ -368,7 +370,7 @@ void Game::displayRoom() {
     } else {
         vector<Item *> items;
         for (int i = 0; i < this->items.size(); i++) {
-            if (this->items[i].getRoom() == currentRoom) {
+            if (this->items[i].getLocation() == currentRoom) {
                 items.push_back(&this->items[i]);
             }
         }
@@ -521,8 +523,8 @@ Item *Game::searchItem(string itemName) {
 void Game::pickup(string itemName) {
     Item *item = this->searchItem(itemName);
 
-    if (item && item->getRoom() == this->player.getRoom()) {
-        item->setRoom(&this->inventory);
+    if (item && item->getLocation() == this->player.getRoom()) {
+        item->setLocation(&this->inventory);
     } else {
         this->command();
     }
@@ -538,8 +540,8 @@ void Game::pickup(string itemName) {
 void Game::drop(string itemName) {
     Item *item = this->searchItem(itemName);
 
-    if (item && item->getRoom() == &this->inventory) {
-        item->setRoom(this->player.getRoom());
+    if (item && item->getLocation() == &this->inventory) {
+        item->setLocation(this->player.getRoom());
     } else {
         this->command();
     }
@@ -549,13 +551,13 @@ void Game::drop(string itemName) {
 void Game::examine(string itemName) {
     Item *item = this->searchItem(itemName);
 
-    if (item && item->getRoom() == &this->inventory) {
+    if (item && item->getLocation() == &this->inventory) {
         clearScreen();
         cout << item->getImage();
         cout << "|                                                                             |" << endl;
         cout << '|' << fixedWidth("  ITEM NAME: " + item->getName(), ' ', WINDOW_WIDTH) << '|' << endl;
         cout << "|                                                                             |" << endl;
-        cout << '|' << fixedWidth("  LOCATION: " + item->getRoom()->getName(), ' ', WINDOW_WIDTH) << '|' << endl;
+        cout << '|' << fixedWidth("  LOCATION: " + item->getLocation()->getName(), ' ', WINDOW_WIDTH) << '|' << endl;
         cout << "|                                                                             |" << endl;
         cout << "+-----------------------------------------------------------------------------+" << endl;
         pause();
@@ -566,7 +568,7 @@ void Game::examine(string itemName) {
 
 void Game::accuse(string suspectName) {
     if (this->difficulty == DIFF_NIGHTMARE) {
-        cout << "Sorry, Not stabbing is not an option\n" << endl;
+        cout << "Sorry, accusing is not an option in nightmare mode\n" << endl;
         return;
     }
 
@@ -585,17 +587,29 @@ void Game::accuse(string suspectName) {
                         if (weapon == this->murderWeapon) {
                             this->gameWin = true;
                             this->gameOver = true;
-                        } else this->gameOver = true;
+                        } else {
+                            cout << "Wrong.\n" << endl;
+                            pause();
+                            this->gameOver = true;
+                        }
                     } else {
                         cout << "item named '" << itemName << "' not found\n" << endl;
                         this->command();
                     }
-                } else this->gameOver = true;
+                } else {
+                    cout << "Wrong.\n" << endl;
+                    pause();
+                    this->gameOver = true;
+                }
             } else {
                 cout << "room named '" << roomName << "' not found\n" << endl;
                 this->command();
             }
-        } else this->gameOver = true;
+        } else {
+            cout << "Wrong.\n" << endl;
+            pause();
+            this->gameOver = true;
+        }
     } else {
         cout << "suspect named '" << suspectName << "' not found\n" << endl;
         this->command();
@@ -607,7 +621,7 @@ vector<Item *> Game::getInventory() {
     vector<Item *> inventoryItems;
 
     for (int i = 0; i < this->items.size(); i++) {
-        if (items[i].getRoom() == &this->inventory) {
+        if (items[i].getLocation() == &this->inventory) {
             inventoryItems.push_back(&items[i]);
         }
     }
@@ -655,7 +669,7 @@ void Game::search() {
 void Game::stab(string suspectName) {
     // Check if game is in nightmare difficulty and exit function if not
     if (this->difficulty != DIFF_NIGHTMARE) {
-        cout << "No stabbing in this mode.\n" << endl;
+        cout << "Stabbing only in nightmare mode.\n" << endl;
         this->command();
         return;
     }

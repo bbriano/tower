@@ -7,7 +7,7 @@ game.o: game.h game.cpp
 item.o: item.h item.cpp
 	clang++ -c item.cpp
 
-main.o: main.h main.cpp
+main.o: main.cpp
 	clang++ -c main.cpp
 
 player.o: player.h player.cpp
@@ -23,4 +23,4 @@ utils.o: utils.h utils.cpp
 	clang++ -c utils.cpp
 
 clean:
-	rm *.o
+	rm tower *.o

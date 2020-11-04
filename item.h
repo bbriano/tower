@@ -15,12 +15,12 @@ class Item {
         Item(std::string name, std::string imagePath);
         std::string getName();
         std::string getImage();
-        Room *getRoom();
-        void setRoom(Room *room);
+        Room *getLocation();
+        void setLocation(Room *room);
         void addBlood();
 
     private:
         std::string name;
         std::string image;
-        Room *room;
+        Room *location;
 };

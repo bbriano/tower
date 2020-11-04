@@ -4,7 +4,7 @@
  *
  * Main application file
  * Controls the flow of the application
- * Menu option
+ * Menu option, and leaderboard functionality
  *
  * Briano Goestiawan, 31482228
  *
@@ -13,7 +13,6 @@
 #include <iostream>
 #include <ctime>
 #include <string>
-#include "main.h"
 #include "game.h"
 #include "utils.h"
 #define WINDOW_WIDTH 77   // Not including border
@@ -23,6 +22,15 @@ using namespace std;
 
 bool hasExit = false;
 Difficulty difficulty = DIFF_MEDIUM;
+
+void mainMenu();
+void runGame();
+void changeDifficulty();
+void showLeaderboards();
+void showLeaderboard(Difficulty difficulty);
+void addToLeaderboard(int timeSeconds, std::string playerName);
+std::string difficultyString(Difficulty difficulty);
+std::string leaderboardFileName(Difficulty difficulty);
 
 // Function call graph: main -> mainMenu -> startGame
 int main() {
@@ -143,7 +151,6 @@ void showLeaderboard(Difficulty difficulty) {
     clearScreen();
     cout << "+-----------------------------------------------------------------------------+" << endl;
 
-    /* vector<string> leaderboard = stringSplit(readFile(leaderboardFileName()), '\n'); */
     vector<string> leaderboard = stringSplit(readFile(leaderboardFileName(difficulty)), '\n');
 
     cout << "|                                                                             |" << endl;
@@ -207,12 +214,12 @@ string difficultyString(Difficulty difficulty) {
 string leaderboardFileName(Difficulty difficulty) {
     switch (difficulty) {
         case DIFF_EASY:
-           return "leaderboard_easy.txt";
+           return "assets/leaderboard_easy.txt";
         case DIFF_MEDIUM:
-           return "leaderboard_medium.txt";
+           return "assets/leaderboard_medium.txt";
         case DIFF_HARD:
-            return "leaderboard_hard.txt";
+            return "assets/leaderboard_hard.txt";
         case DIFF_NIGHTMARE:
-            return "leaderboard_nightmare.txt";
+            return "assets/leaderboard_nightmare.txt";
     }
 }
