@@ -2,7 +2,11 @@
  *
  * room.h
  *
- * May containt suspects and items
+ * Represents the room object
+ * Player, item and suspect all points to a room
+ * Can access neighbouring rooms in all 4 directions
+ *
+ * Briano Goestiawan, 31482228
  *
 ************************************************************/
 
@@ -21,7 +25,7 @@ enum Direction {
 class Room {
     public:
         Room();
-        Room(std::string name);
+        /* Room(std::string name); */
         Room(std::string name, std::string imagePath);
 
         std::string getName();

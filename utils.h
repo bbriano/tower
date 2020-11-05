@@ -1,8 +1,10 @@
 /************************************************************
  *
- * utils.h
+ * utils.cpp
  *
- * A collection of helper functions
+ * A collection of helper functions to avoid repetition
+ *
+ * Briano Goestiawan, 31482228
  *
 ************************************************************/
 

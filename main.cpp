@@ -2,9 +2,10 @@
  *
  * main.cpp
  *
- * Main application file
  * Controls the flow of the application
- * Menu option, and leaderboard functionality
+ * Handle menu interactions
+ * Difficulty option
+ * View leaderboard functionality
  *
  * Briano Goestiawan, 31482228
  *
@@ -20,7 +21,7 @@
 
 using namespace std;
 
-bool hasExit = false;
+bool hasExit = false;  // true while application is running else exit
 Difficulty difficulty = DIFF_MEDIUM;
 
 void mainMenu();
@@ -149,23 +150,26 @@ void showLeaderboards() {
 // Display leaderboard. Wait for user before continuing
 void showLeaderboard(Difficulty difficulty) {
     clearScreen();
+
+    // Print leaderboard heading including difficulty category
     cout << "+-----------------------------------------------------------------------------+" << endl;
-
-    vector<string> leaderboard = stringSplit(readFile(leaderboardFileName(difficulty)), '\n');
-
     cout << "|                                                                             |" << endl;
     cout << '|' << fixedWidth("  LEADERBOARD " + difficultyString(difficulty), ' ', WINDOW_WIDTH) << '|' << endl;
 
+    // Load the leaderboard and split it by newline into a vector of strings
+    vector<string> leaderboard = stringSplit(readFile(leaderboardFileName(difficulty)), '\n');
+
+    // Print every entry in leaderboard
     for (int i = 0; i < leaderboard.size(); i++) {
         int spaceIndex = leaderboard[i].find(' ');
         string time = toHourMinuteSeconds(stoi(leaderboard[i].substr(0, spaceIndex)));
         string playerName = leaderboard[i].substr(spaceIndex + 1);
-
         int dotCount = WINDOW_WIDTH - playerName.length() - time.length() - 6;
         cout << "|                                                                             |" << endl;
         cout << "|  " << playerName << ' ' << fixedWidth("", '.', dotCount) << ' ' << time << "  |" << endl;
     }
 
+    // Print blank lines so it reaches the window height
     int blankLineCount = WINDOW_HEIGHT - leaderboard.size() * 2 - 2;
     for (int i = 0; i < blankLineCount; i++) {
         cout << "|                                                                             |" << endl;
@@ -198,6 +202,7 @@ void addToLeaderboard(int timeSeconds, string playerName) {
     writeFile(leaderboardFileName(difficulty), stringJoin(leaderboard));
 }
 
+// Maps difficulty enum type to its string form
 string difficultyString(Difficulty difficulty) {
     switch (difficulty) {
         case DIFF_EASY:
@@ -211,6 +216,7 @@ string difficultyString(Difficulty difficulty) {
     }
 }
 
+// Maps difficulty enum to file path of its leaderboard collection
 string leaderboardFileName(Difficulty difficulty) {
     switch (difficulty) {
         case DIFF_EASY:

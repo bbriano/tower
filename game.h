@@ -2,8 +2,10 @@
  *
  * game.h
  *
- * Holds the game state
+ * Stores all game objects
  * Controls the flow of the game
+ *
+ * Briano Goestiawan, 31482228
  *
 ************************************************************/
 
@@ -47,6 +49,17 @@ class Game {
         Player player;
         Room inventory;
 
+        // Private variables
+        View view;
+        Difficulty difficulty;
+        int moveCount;
+        int searchCount;
+        int questionCount;
+        bool gameOver;
+        bool gameWin;
+
+        // Helper functions to get object pointers
+        std::vector<Item *> getInventory();
         Room *getRandomRoom();
         Room *searchRoom(std::string roomName);
         Suspect *searchSuspect(std::string suspectName);
@@ -56,32 +69,24 @@ class Game {
         Room *getMurderRoom();
         Item *getMurderWeapon();
 
-        View view;
-        Difficulty difficulty;
-        int moveCount;
-        int searchCount;
-        int questionCount;
-        bool gameOver;
-        bool gameWin;
-
         // Create game objects
         void createRooms();
         void createItems();
         void createSuspects();
 
-        // Game view methods
-        void cycleView();
+        // Display methods
         void displayTower();
         void displayRoom();
         void displayInventory();
+        void displayStatusBar();
+        void displayItem(Item *item);
 
-        // Utility commands
+        // Command methods
+        void cycleView();
         void confirmQuit();
         void invalidCommand();
-
         void question(std::string suspectName);
         void gather();
-        std::vector<Item *> getInventory();
         void pickup(std::string itemName);
         void drop(std::string itemName);
         void examine(std::string itemName);
@@ -90,7 +95,5 @@ class Game {
         void search();
         void stab(std::string suspectName);
         void note(std::string);
-        void displayItem(Item *item);
         void examineAll();
-        void displayStatusBar();
 };

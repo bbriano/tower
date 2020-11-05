@@ -2,7 +2,10 @@
  *
  * player.h
  *
- * Represents the player (detective)
+ * Represents the player in the game
+ * Stores player's name, location and image
+ *
+ * Briano Goestiawan, 31482228
  *
 ************************************************************/
 

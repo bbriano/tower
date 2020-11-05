@@ -2,6 +2,12 @@
  *
  * room.cpp
  *
+ * Represents the room object
+ * Player, item and suspect all points to a room
+ * Can access neighbouring rooms in all 4 directions
+ *
+ * Briano Goestiawan, 31482228
+ *
 ************************************************************/
 
 #include "room.h"
@@ -10,18 +16,16 @@
 
 using namespace std;
 
+// Default constructor so can be invoked from game
 Room::Room() { }
 
-Room::Room(string name) {
-    this->name = name;
-}
-
+// Initialize room name and load image from file
 Room::Room(string name, string imagePath) {
     // Initialize class variables
     this->name = name;
     this->image = readFile(imagePath);
     this->itemHidden = true;
-    /* this->isMurderRoom = false; */
+    this->murderRoom = false;
 
     // Initialize neighbours to NULL
     this->neighbour[DIR_LEFT] = NULL;
@@ -30,22 +34,27 @@ Room::Room(string name, string imagePath) {
     this->neighbour[DIR_DOWN] = NULL;
 }
 
+// Return the room name
 string Room::getName() {
     return this->name;
 }
 
+// Return the room image as a ascii art string
 string Room::getImage() {
     return this->image;
 }
 
+// Return true if room have not been search
 bool Room::getItemHidden() {
     return this->itemHidden;
 }
 
+// Set item to not hidden if room is searched
 void Room::search() {
     this->itemHidden = false;
 }
 
+// Return true if room is the murder room else false
 bool Room::getMurderRoom() {
     return this->murderRoom;
 }
@@ -65,10 +74,12 @@ void Room::setMurderRoom() {
     }
 }
 
+// Set neighbour room in direction
 void Room::setNeighbour(Direction direction, Room *room) {
     this->neighbour[direction] = room;
 }
 
+// Get neighbouring room provided a direction
 Room *Room::getNeighbour(Direction direction) {
     return this->neighbour[direction];
 }

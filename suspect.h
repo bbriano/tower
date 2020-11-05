@@ -2,7 +2,11 @@
  *
  * suspect.h
  *
- * Represents a suspect
+ * Represents the suspects in the game
+ * A suspect might be a killer, victim or neither (normal)
+ * Provides interface to get and set fields
+ *
+ * Briano Goestiawan, 31482228
  *
 ************************************************************/
 

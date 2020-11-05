@@ -1,4 +1,4 @@
-troubledtower: game.o item.o main.o player.o room.o suspect.o utils.o
+tower: game.o item.o main.o player.o room.o suspect.o utils.o
 	clang++ game.o item.o main.o player.o room.o suspect.o utils.o -o tower
 
 game.o: game.h game.cpp
@@ -23,4 +23,4 @@ utils.o: utils.h utils.cpp
 	clang++ -c utils.cpp
 
 clean:
-	rm tower *.o
+	rm *.o

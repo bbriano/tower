@@ -2,6 +2,12 @@
  *
  * suspect.cpp
  *
+ * Represents the suspects in the game
+ * A suspect might be a killer, victim or neither (normal)
+ * Provides interface to get and set fields
+ *
+ * Briano Goestiawan, 31482228
+ *
 ************************************************************/
 
 #include <iostream>
@@ -22,6 +28,7 @@ string Suspect::getName() {
     return this->name;
 }
 
+// Return a pointer to suspect's location
 Room *Suspect::getRoom() {
     return this->room;
 }
@@ -49,17 +56,18 @@ void Suspect::setAlibi(Suspect *alibi) {
 // Display messages from the suspect
 void Suspect::talk(string playerName) {
     switch (this->type) {
+        // Normal or killer acts the same way by mentioning their alibi or
+        // stating that their alone
         case SUS_NORMAL:
         case SUS_KILLER:
             cout << "Hi " << playerName << ", ";
-
             if (this->alibi == NULL) {
                 cout << "I was alone" << endl;
             } else {
                 cout << "I was with " << this->alibi->getName() << endl;
             }
-
             break;
+        // Dead
         case SUS_VICTIM:
             cout << "X_X" << endl;
             break;

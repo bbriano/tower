@@ -1,11 +1,27 @@
+/************************************************************
+ *
+ * utils.cpp
+ *
+ * A collection of helper functions to avoid repetition
+ *
+ * Briano Goestiawan, 31482228
+ *
+************************************************************/
+
 #include <fstream>
 #include <iostream>
 #include <vector>
 #include <sstream>
 #include "utils.h"
+#ifdef _WIN32
+#define CLEAR "cls"
+#else
+#define CLEAR "clear"
+#endif
 
 using namespace std;
 
+// Returns the content of a file specified by fileName
 string readFile(string fileName) {
     ifstream file;
     file.open(fileName);
@@ -29,6 +45,7 @@ string readFile(string fileName) {
     return content;
 }
 
+// Write content to file named fileName, overwrite if it exists
 void writeFile(string fileName, string content) {
     ofstream file;
     file.open(fileName);
@@ -43,6 +60,7 @@ void writeFile(string fileName, string content) {
     file.close();
 }
 
+// Split string to vector of strings based on character
 vector<string> stringSplit(string content, char character) {
     vector<string> lines;
 
@@ -64,6 +82,7 @@ vector<string> stringSplit(string content, char character) {
     return lines;
 }
 
+// Join vector of string into one string used character
 string stringJoin(vector<string> lines, char character) {
     string result = "";
 
@@ -74,6 +93,7 @@ string stringJoin(vector<string> lines, char character) {
     return result;
 }
 
+// Print promp to screen then read and return input line
 string readInput(string prompt) {
     cout << prompt;
     string input;
@@ -81,6 +101,7 @@ string readInput(string prompt) {
     return input;
 }
 
+// Print prompt to screen then read input as int. Repeat until user input an int
 int readInputInt(string prompt) {
     string input;
     do {
@@ -89,20 +110,17 @@ int readInputInt(string prompt) {
     return stoi(input);
 }
 
+// Pause the control flow until the user press enter
 void pause() {
     readInput("Press Enter to continue ");
 }
 
 // Cross platform clear command
-#ifdef _WIN32
-#define CLEAR "cls"
-#else
-#define CLEAR "clear"
-#endif
 void clearScreen() {
     system(CLEAR);
 }
 
+// Return true if value is an integer string else return false
 bool isInteger(std::string value) {
     // Empty string is not an integer
     if (value.length() <= 0) {
@@ -123,6 +141,7 @@ bool isInteger(std::string value) {
     return true;
 }
 
+// Returns a copy of value with all the uppercase characters replaced with its lowercase equivalent
 string toLower(string str) {
     for (int i = 0; i < str.length(); i++) {
         if (str[i] >= 'A' && str[i] <= 'Z') {
@@ -132,6 +151,7 @@ string toLower(string str) {
     return str;
 }
 
+// Returns a string with a fixed width and align text to the left
 string fixedWidth(string text, char symbol, int width) {
     string output = "";
 
@@ -146,6 +166,7 @@ string fixedWidth(string text, char symbol, int width) {
     return output;
 }
 
+// Returns seconds time in hour:min:sec string format
 string toHourMinuteSeconds(int seconds) {
     int hour = seconds / 60 / 60;
     int min = seconds / 60 % 60;

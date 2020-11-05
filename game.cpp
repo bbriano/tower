@@ -2,7 +2,8 @@
  *
  * game.cpp
  *
- * Implementation of game.h
+ * Stores all game objects
+ * Controls the flow of the game
  *
  * Briano Goestiawan, 31482228
  *
@@ -27,6 +28,7 @@ string readInput(string prompt);
 
 /****************************** PUBLIC METHODS ******************************/
 
+// Constructor: initialize game variables and create game objects
 Game::Game(string playerName, Difficulty difficulty) {
     // Create and allocate game objects
     this->createRooms();
@@ -36,7 +38,7 @@ Game::Game(string playerName, Difficulty difficulty) {
     // Create player instance
     Room startingRoom = this->rooms[6];
     this->player = Player(playerName, &startingRoom);
-    this->inventory = Room("Inventory");
+    this->inventory = Room("Inventory", "");
 
     // Initialize variables
     this->view = VIEW_TOWER;
@@ -65,6 +67,8 @@ void Game::showHelpScreen() {
 // Draw image to screen
 void Game::displayView() {
     clearScreen();
+
+    // Display different views depending on currently selected room
     switch (this->view) {
         case VIEW_TOWER:
             this->displayTower();
@@ -133,10 +137,12 @@ void Game::command() {
     else this->invalidCommand();
 }
 
+// Return true if player won else false
 bool Game::getGameWin() {
     return this->gameWin;
 }
 
+// Return true if game is still running else false
 bool Game::getGameOver() {
     return this->gameOver;
 }
@@ -228,13 +234,14 @@ void Game::createSuspects() {
         this->suspects[i].setRoom(this->getRandomRoom());
     }
 
-    // Create a vector of pointer to all suspects (for random picking purpose)
+    // Create a vector of pointer to all suspects
+    // Later use this to assign suspects as different types
     vector<Suspect*> suspectCollection;
     for (int i = 0; i < this->suspects.size(); i++) {
         suspectCollection.push_back(&this->suspects[i]);
     }
 
-    // Shuffle suspect collection
+    // Shuffle suspect collection so suspect are assign different roles randomly
     for (int i = 0; i < suspectCollection.size(); i++) {
         Suspect *temp = suspectCollection[i];
         int randomIndex = rand() % suspectCollection.size();
@@ -242,6 +249,7 @@ void Game::createSuspects() {
         suspectCollection[randomIndex] = temp;
     }
 
+    // Temporary suspect pointer for assigning suspect types
     Suspect *tempSuspect;
 
     // Assign victim
@@ -255,13 +263,12 @@ void Game::createSuspects() {
     tempSuspect->setType(SUS_KILLER);
     tempSuspect->setAlibi(suspectCollection[rand() % suspectCollection.size()]);
 
-    // Set alibi pairs
+    // Set alibi pairs except for the last in the list
     while (suspectCollection.size() > 1) {
         Suspect *suspectA = suspectCollection.back();
         suspectCollection.pop_back();
         Suspect *suspectB = suspectCollection.back();
         suspectCollection.pop_back();
-
         suspectA->setAlibi(suspectB);
         suspectB->setAlibi(suspectA);
     }
@@ -443,6 +450,7 @@ void Game::confirmQuit() {
 // If the user puts an invalid command suggest them to read the help screen
 void Game::invalidCommand() {
     cout << "Get some '//> help'" << endl;
+    pause();
 }
 
 // Display a response from the suspect named suspectName
@@ -479,12 +487,14 @@ void Game::question(string suspectName) {
 
 // Move all suspect to the room where the player is in
 void Game::gather() {
+    // Block this command if in Hard or Nightmare difficulty
     if (this->difficulty == DIFF_HARD || this->difficulty == DIFF_NIGHTMARE) {
         cout << "gather command not enabled in this difficulty" << endl;
         pause();
         return;
     }
 
+    // Move all suspect to player's current room
     for (int i = 0; i < this->suspects.size(); i++) {
         if (&this->suspects[i] != this->getVictim()) {
             this->suspects[i].setRoom(this->player.getRoom());
@@ -504,7 +514,6 @@ Room *Game::searchRoom(std::string roomName) {
             return &this->rooms[i];
         }
     }
-
     return NULL;
 }
 
@@ -515,7 +524,6 @@ Suspect *Game::searchSuspect(string suspectName) {
             return &this->suspects[i];
         }
     }
-
     return NULL;
 }
 
@@ -526,7 +534,6 @@ Item *Game::searchItem(string itemName) {
             return &this->items[i];
         }
     }
-
     return NULL;
 }
 
@@ -585,6 +592,7 @@ void Game::examineAll() {
     }
 }
 
+// Display an item in fullscreen
 void Game::displayItem(Item *item) {
     clearScreen();
     cout << item->getImage();
@@ -597,6 +605,7 @@ void Game::displayItem(Item *item) {
     pause();
 }
 
+// Accuse the killer, result in ending the game as won or lose
 void Game::accuse(string suspectName) {
     if (this->difficulty == DIFF_NIGHTMARE) {
         cout << "Sorry, accusing is not an option in nightmare mode" << endl;
@@ -630,26 +639,35 @@ void Game::accuse(string suspectName) {
         return;
     }
 
-    // Decide if player won or not
+    // Default to win, but will be set to false if any of the following
+    // requirments is not met
     this->gameWin = true;
+
+    // Check if player accuse the killer
     if (suspect != this->getKiller()) {
         cout << "Accused the wrong suspect. killer was " << this->getKiller()->getName() << endl;
         this->gameWin = false;
     }
+
+    // Check if player told the right murder room
     if (room != this->getMurderRoom()) {
         cout << "Told wrong room. murder room was " << this->getMurderRoom()->getName() << endl;
         this->gameWin = false;
     }
+
+    // Check if player told the right murder weapon
     if (item != this->getMurderWeapon()) {
         cout << "Told wrong item. murder weapon was " << this->getMurderWeapon()->getName() << endl;
         this->gameWin = false;
     }
-    this->gameOver = true;
 
     // Pause so player can read their mistakes
     if (!this->gameWin) {
         pause();
     }
+
+    // Signal to end the game
+    this->gameOver = true;
 }
 
 // Return a list of item pointer of items in inventory
@@ -657,6 +675,7 @@ vector<Item *> Game::getInventory() {
     vector<Item *> inventoryItems;
 
     for (int i = 0; i < this->items.size(); i++) {
+        // Only add to vector if item location is player's inventory
         if (items[i].getLocation() == &this->inventory) {
             inventoryItems.push_back(&items[i]);
         }

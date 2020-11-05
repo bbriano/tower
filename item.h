@@ -3,6 +3,9 @@
  * item.h
  *
  * Represents an item object
+ * Might be the murder weapon
+ *
+ * Briano Goestiawan, 31482228
  *
 ************************************************************/
 
